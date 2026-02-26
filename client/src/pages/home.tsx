@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import GithubSection from "@/components/github-section";
+import { Skeleton } from "@/components/ui/skeleton";
+import SkillsGraph from "@/components/skills-graph";
 import avatarImg from "@assets/IMG_2049_1772134195061.png";
 import {
   ArrowUpRight,
@@ -23,9 +25,14 @@ import {
   FilePlus,
   FileMinus,
   Star,
+  GitFork,
   Send,
   Menu,
   X,
+  BookOpen,
+  ExternalLink,
+  Eye,
+  AlertCircle,
 } from "lucide-react";
 
 const navLinks = [
@@ -34,7 +41,6 @@ const navLinks = [
   { label: "Skills", id: "skills" },
   { label: "Experience", id: "experience" },
   { label: "Projects", id: "projects" },
-  { label: "GitHub", id: "github" },
   { label: "Contact", id: "contact" },
 ];
 
@@ -427,20 +433,55 @@ function Skills() {
     >
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeader tag="# Skills.json" title="Tech Stack" />
-        <div className="flex flex-wrap gap-3" data-testid="skills-grid">
-          {skills.map((skill) => (
-            <Badge
-              key={skill}
-              variant="secondary"
-              className="text-[13px] font-mono border border-border"
-              data-testid={`badge-skill-${skill.toLowerCase().replace(/[\s/.]/g, "-")}`}
-            >
-              {skill}
-            </Badge>
-          ))}
-        </div>
+        <SkillsGraph />
       </div>
     </section>
+  );
+}
+
+function DateBadge({ dateRange }: { dateRange: string }) {
+  return (
+    <div className="inline-flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2">
+      <Calendar className="w-3.5 h-3.5 text-primary" />
+      <span className="font-mono text-[12px] text-foreground whitespace-nowrap">{dateRange}</span>
+    </div>
+  );
+}
+
+function ExperienceCard({ exp, index }: { exp: typeof experiences[0]; index: number }) {
+  return (
+    <Card className="border border-border bg-card rounded-md p-6" data-testid={`card-experience-${index}`}>
+      <div className="flex items-center gap-3 mb-3 flex-wrap">
+        <span className="font-mono text-primary text-[12px]">{exp.hash}</span>
+        <Badge variant="secondary" className="font-mono text-[11px]">
+          <GitBranch className="w-3 h-3 mr-1" />
+          {exp.branch}
+        </Badge>
+      </div>
+      <h3 className="text-foreground font-semibold mb-1" style={{ fontSize: "18px" }} data-testid={`text-exp-title-${index}`}>
+        {exp.title}
+      </h3>
+      <p className="text-muted-foreground font-mono text-[13px] mb-3">@ {exp.company}</p>
+      <p className="text-muted-foreground mb-4" style={{ fontSize: "15px", lineHeight: "1.7" }} data-testid={`text-exp-desc-${index}`}>
+        {exp.description}
+      </p>
+      <div className="flex flex-wrap gap-2 mb-4">
+        {exp.tech.map((t) => (
+          <Badge key={t} variant="secondary" className="font-mono text-[11px]">
+            {t}
+          </Badge>
+        ))}
+      </div>
+      <div className="flex items-center gap-4 text-[12px] font-mono text-muted-foreground flex-wrap">
+        <span>{exp.filesChanged} files changed</span>
+        <span className="text-green-400 flex items-center gap-1">
+          <FilePlus className="w-3 h-3" />+{exp.insertions}
+        </span>
+        <span className="text-red-400 flex items-center gap-1">
+          <FileMinus className="w-3 h-3" />-{exp.deletions}
+        </span>
+      </div>
+    </Card>
   );
 }
 
@@ -456,62 +497,76 @@ function Experience() {
         <SectionHeader tag="$ git log --stat --oneline" title="Experience" />
 
         <div className="relative">
-          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-border hidden md:block" />
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border hidden md:block" />
 
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
-              <div key={index} className="relative flex gap-6" data-testid={`experience-entry-${index}`}>
-                <div className="hidden md:flex flex-col items-center pt-1">
-                  <div className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center z-10">
-                    <GitCommit className="w-4 h-4 text-primary" />
-                  </div>
-                </div>
+          <div className="space-y-12 md:space-y-16">
+            {experiences.map((exp, index) => {
+              const isEven = index % 2 === 0;
 
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <span className="font-mono text-primary text-[12px]">{exp.hash}</span>
-                    <Badge variant="secondary" className="font-mono text-[11px]">
-                      <GitBranch className="w-3 h-3 mr-1" />
-                      {exp.branch}
-                    </Badge>
-                    <span className="text-muted-foreground text-[12px] font-mono">{exp.dateRange}</span>
+              return (
+                <div key={index} className="relative" data-testid={`experience-entry-${index}`}>
+                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-6 z-10">
+                    <div
+                      className="w-5 h-5 rounded-full border-[3px] border-background"
+                      style={{ background: "linear-gradient(135deg, #f97316, #ef4444)" }}
+                    />
                   </div>
 
-                  <Card className="border border-border bg-card rounded-md p-6">
-                    <h3 className="text-foreground font-semibold mb-1" style={{ fontSize: "18px" }} data-testid={`text-exp-title-${index}`}>
-                      {exp.title} <span className="text-muted-foreground font-normal">@ {exp.company}</span>
-                    </h3>
-                    <p className="text-muted-foreground mb-4" style={{ fontSize: "15px", lineHeight: "1.7" }} data-testid={`text-exp-desc-${index}`}>
-                      {exp.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {exp.tech.map((t) => (
-                        <Badge key={t} variant="secondary" className="font-mono text-[11px]">
-                          {t}
-                        </Badge>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-4 text-[12px] font-mono text-muted-foreground flex-wrap">
-                      <span>{exp.filesChanged} files changed</span>
-                      <span className="text-green-400 flex items-center gap-1">
-                        <FilePlus className="w-3 h-3" />+{exp.insertions}
-                      </span>
-                      <span className="text-red-400 flex items-center gap-1">
-                        <FileMinus className="w-3 h-3" />-{exp.deletions}
-                      </span>
-                    </div>
-                  </Card>
-                </div>
-              </div>
-            ))}
+                  <div className="md:hidden flex items-center gap-3 mb-3">
+                    <div
+                      className="w-4 h-4 rounded-full flex-shrink-0"
+                      style={{ background: "linear-gradient(135deg, #f97316, #ef4444)" }}
+                    />
+                    <DateBadge dateRange={exp.dateRange} />
+                  </div>
 
-            <div className="relative flex gap-6">
-              <div className="hidden md:flex flex-col items-center pt-1">
-                <div className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center z-10">
-                  <Star className="w-4 h-4 text-muted-foreground" />
+                  <div className="hidden md:grid md:grid-cols-2 md:gap-12">
+                    {isEven ? (
+                      <>
+                        <div className="pr-4">
+                          <ExperienceCard exp={exp} index={index} />
+                        </div>
+                        <div className="pl-4 flex items-start pt-4">
+                          <DateBadge dateRange={exp.dateRange} />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="pr-4 flex items-start justify-end pt-4">
+                          <DateBadge dateRange={exp.dateRange} />
+                        </div>
+                        <div className="pl-4">
+                          <ExperienceCard exp={exp} index={index} />
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="md:hidden">
+                    <ExperienceCard exp={exp} index={index} />
+                  </div>
+                </div>
+              );
+            })}
+
+            <div className="relative">
+              <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-2 z-10">
+                <div className="w-5 h-5 rounded-full bg-card border-2 border-border flex items-center justify-center">
+                  <Star className="w-2.5 h-2.5 text-muted-foreground" />
                 </div>
               </div>
-              <div className="flex-1 pt-2">
+              <div className="md:hidden flex items-center gap-3 mb-1">
+                <div className="w-4 h-4 rounded-full bg-card border-2 border-border flex items-center justify-center flex-shrink-0">
+                  <Star className="w-2 h-2 text-muted-foreground" />
+                </div>
+              </div>
+              <div className="hidden md:grid md:grid-cols-2 md:gap-12">
+                <div className="pr-4 flex justify-end">
+                  <p className="font-mono text-muted-foreground text-[13px] pt-1">Initial Commit (Hello World)</p>
+                </div>
+                <div />
+              </div>
+              <div className="md:hidden">
                 <p className="font-mono text-muted-foreground text-[13px]">Initial Commit (Hello World)</p>
               </div>
             </div>
@@ -522,7 +577,89 @@ function Experience() {
   );
 }
 
+const GITHUB_USERNAME = "msmall2691-eng";
+const GITHUB_CACHE_TTL = 10 * 60 * 1000;
+
+interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  language: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  visibility: string;
+  updated_at: string;
+}
+
+interface GitHubUser {
+  public_repos: number;
+  html_url: string;
+}
+
+const langColors: Record<string, string> = {
+  TypeScript: "#3178C6",
+  JavaScript: "#F7DF1E",
+  Python: "#3572A5",
+  HTML: "#E34C26",
+  CSS: "#563D7C",
+  Java: "#B07219",
+  Go: "#00ADD8",
+  Rust: "#DEA584",
+  Ruby: "#701516",
+  Shell: "#89E051",
+  C: "#555555",
+  "C++": "#F34B7D",
+  "C#": "#178600",
+  PHP: "#4F5D95",
+  Swift: "#F05138",
+  Kotlin: "#A97BFF",
+  Dart: "#00B4AB",
+};
+
+function formatUpdatedAgo(dateStr: string): string {
+  const now = Date.now();
+  const updated = new Date(dateStr).getTime();
+  const diffMs = now - updated;
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  if (diffDays === 0) return "Updated today";
+  if (diffDays === 1) return "Updated 1 day ago";
+  if (diffDays < 30) return `Updated ${diffDays} days ago`;
+  const diffMonths = Math.floor(diffDays / 30);
+  if (diffMonths === 1) return "Updated 1 month ago";
+  return `Updated ${diffMonths} months ago`;
+}
+
+async function fetchGitHubData(): Promise<{ repos: GitHubRepo[]; totalRepos: number }> {
+  const [userRes, reposRes] = await Promise.all([
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=30&sort=updated`),
+  ]);
+  if (!userRes.ok || !reposRes.ok) throw new Error("Failed to fetch GitHub data");
+  const userData: GitHubUser = await userRes.json();
+  const reposData: GitHubRepo[] = await reposRes.json();
+  return { repos: reposData, totalRepos: userData.public_repos };
+}
+
+function useGitHubData() {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["/github", GITHUB_USERNAME],
+    queryFn: fetchGitHubData,
+    staleTime: GITHUB_CACHE_TTL,
+    retry: 1,
+  });
+
+  return {
+    repos: data?.repos ?? [],
+    totalRepos: data?.totalRepos ?? 0,
+    loading: isLoading,
+    error: isError,
+  };
+}
+
 function Projects() {
+  const { repos, totalRepos, loading, error } = useGitHubData();
+
   return (
     <section
       id="projects"
@@ -533,70 +670,188 @@ function Projects() {
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeader tag="$ ls -la ~/projects" title="Featured Projects" />
 
-        <div className="grid grid-cols-1 gap-6">
-          {projects.map((project, index) => (
-            <Card
-              key={index}
-              className="border border-border bg-card rounded-md p-0 hover-elevate transition-all duration-200"
-              data-testid={`card-project-${index}`}
-            >
-              <div className="flex flex-col md:flex-row">
-                <div className="md:w-2/5 bg-accent flex items-center justify-center p-10 md:rounded-l-md">
-                  <div className="w-full aspect-video bg-card rounded-md flex items-center justify-center border border-border">
-                    <project.icon className="w-12 h-12 text-primary opacity-40" />
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-1" data-testid="repos-sidebar">
+            <Card className="border border-border bg-card rounded-md p-0">
+              <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-border">
+                <div className="flex items-center gap-2">
+                  <BookOpen className="w-3.5 h-3.5 text-muted-foreground" />
+                  <span className="text-foreground text-[14px] font-semibold font-mono">Repositories</span>
                 </div>
-                <div className="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
-                  <h3
-                    className="text-foreground font-semibold mb-3"
-                    style={{ fontSize: "20px" }}
-                    data-testid={`text-project-title-${index}`}
+                {!loading && !error && (
+                  <Badge variant="secondary" className="font-mono text-[11px]" data-testid="badge-repo-count">
+                    {totalRepos}
+                  </Badge>
+                )}
+              </div>
+
+              <div className="max-h-[520px] overflow-y-auto">
+                {loading && (
+                  <div className="p-4 space-y-4" data-testid="repos-loading">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={i} className="space-y-2">
+                        <Skeleton className="h-4 w-3/4" />
+                        <div className="flex items-center gap-3">
+                          <Skeleton className="h-3 w-16" />
+                          <Skeleton className="h-3 w-20" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {error && (
+                  <div className="p-6 text-center" data-testid="repos-error">
+                    <AlertCircle className="w-6 h-6 text-muted-foreground mx-auto mb-2" />
+                    <p className="text-muted-foreground text-[13px] font-mono">
+                      Couldn't load repos
+                    </p>
+                  </div>
+                )}
+
+                {!loading && !error && repos.length === 0 && (
+                  <div className="p-6 text-center">
+                    <p className="text-muted-foreground text-[13px] font-mono">
+                      No repositories found
+                    </p>
+                  </div>
+                )}
+
+                {!loading && !error && repos.map((repo) => (
+                  <a
+                    key={repo.id}
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-4 py-3 border-b border-border last:border-b-0 hover-elevate transition-all duration-200"
+                    data-testid={`repo-item-${repo.id}`}
                   >
-                    {project.title}
-                  </h3>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-foreground text-[13px] font-mono font-semibold truncate" data-testid={`text-repo-name-${repo.id}`}>
+                        {repo.name}
+                      </span>
+                      <Badge variant="outline" className="font-mono text-[10px] flex-shrink-0 no-default-hover-elevate no-default-active-elevate">
+                        {repo.visibility || "public"}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      {repo.language && (
+                        <div className="flex items-center gap-1 text-[11px] text-muted-foreground font-mono">
+                          <span
+                            className="w-2 h-2 rounded-full flex-shrink-0"
+                            style={{ backgroundColor: langColors[repo.language] || "#6B7280" }}
+                          />
+                          <span>{repo.language}</span>
+                        </div>
+                      )}
+                      <span className="text-[11px] text-muted-foreground/60 font-mono">
+                        {formatUpdatedAgo(repo.updated_at)}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              <div className="px-4 py-3 border-t border-border">
+                <a
+                  href={`https://github.com/${GITHUB_USERNAME}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-primary text-[13px] font-mono hover:underline"
+                  data-testid="link-view-all-repos"
+                >
+                  View all repositories
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </Card>
+          </div>
+
+          <div className="lg:col-span-2" data-testid="pinned-projects">
+            <div className="flex items-center gap-2 mb-4">
+              <Eye className="w-3.5 h-3.5 text-primary" />
+              <span className="text-muted-foreground text-[12px] font-mono tracking-wider uppercase">
+                Pinned Projects
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4">
+              {projects.map((project, index) => (
+                <Card
+                  key={index}
+                  className="border border-border bg-card rounded-md p-5 hover-elevate transition-all duration-200"
+                  data-testid={`card-project-${index}`}
+                >
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="flex items-center gap-2">
+                      <project.icon className="w-4 h-4 text-primary flex-shrink-0" />
+                      <h3
+                        className="text-foreground font-semibold text-[15px] font-mono"
+                        data-testid={`text-project-title-${index}`}
+                      >
+                        {project.title}
+                      </h3>
+                    </div>
+                    <Badge variant="outline" className="font-mono text-[10px] flex-shrink-0 no-default-hover-elevate no-default-active-elevate">
+                      public
+                    </Badge>
+                  </div>
+
                   <p
-                    className="text-muted-foreground mb-5"
-                    style={{ fontSize: "15px", lineHeight: "1.7" }}
+                    className="text-muted-foreground mb-4 line-clamp-2"
+                    style={{ fontSize: "13px", lineHeight: "1.6" }}
                     data-testid={`text-project-desc-${index}`}
                   >
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-5">
+
+                  <div className="flex flex-wrap gap-1.5 mb-4">
                     {project.tech.map((t) => (
                       <Badge
                         key={t}
                         variant="secondary"
-                        className="font-mono text-[11px]"
+                        className="font-mono text-[10px]"
                         data-testid={`badge-tech-${t.toLowerCase().replace(/[\s/]/g, "-")}`}
                       >
                         {t}
                       </Badge>
                     ))}
                   </div>
-                  <div className="flex items-center gap-3 flex-wrap">
+
+                  <div className="flex items-center justify-between gap-3 flex-wrap">
+                    <div className="flex items-center gap-4 text-[12px] text-muted-foreground font-mono">
+                      {project.tech[0] && (
+                        <div className="flex items-center gap-1">
+                          <span
+                            className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                            style={{ backgroundColor: langColors[project.tech[0]] || "#3178C6" }}
+                          />
+                          <span>{project.tech[0]}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1">
+                        <Star className="w-3 h-3" />
+                        <span>0</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <GitFork className="w-3 h-3" />
+                        <span>0</span>
+                      </div>
+                    </div>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="rounded-md text-[13px]"
+                      className="rounded-md text-[12px] font-mono"
                       data-testid={`button-demo-${index}`}
                     >
                       Demo
-                      <ArrowUpRight className="w-3.5 h-3.5 ml-1.5" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="rounded-md text-[13px]"
-                      data-testid={`button-code-${index}`}
-                    >
-                      Code
-                      <Github className="w-3.5 h-3.5 ml-1.5" />
+                      <ArrowUpRight className="w-3 h-3 ml-1" />
                     </Button>
                   </div>
-                </div>
-              </div>
-            </Card>
-          ))}
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -764,7 +1019,6 @@ export default function Home() {
       <Skills />
       <Experience />
       <Projects />
-      <GithubSection />
       <Contact />
       <Footer />
     </div>

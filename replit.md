@@ -21,6 +21,8 @@ A dark, terminal/developer-themed portfolio website for Meg — a Computer Scien
 - React + TypeScript (frontend)
 - Tailwind CSS (styling)
 - Shadcn UI components (Badge, Button, Card, Skeleton)
+- TanStack React Query (data fetching)
+- react-icons (tech brand logos for skills graph)
 - Wouter (routing)
 - Express (server)
 - Vite (bundler)
@@ -36,8 +38,9 @@ A dark, terminal/developer-themed portfolio website for Meg — a Computer Scien
 - Git-style commit timeline for Experience
 
 ## File Structure
-- `client/src/pages/home.tsx` — Main portfolio page with all sections (Navbar, Hero, About, Skills, Experience, Projects, GitHub, Contact, Footer)
-- `client/src/components/github-section.tsx` — GitHub API integration component
+- `client/src/pages/home.tsx` — Main portfolio page with all sections (Navbar, Hero, About, Skills, Experience, Projects, Contact, Footer)
+- `client/src/components/skills-graph.tsx` — Interactive orbital skills constellation with drag interaction
+- `client/src/components/github-section.tsx` — Legacy GitHub component (no longer rendered, data integrated into Projects)
 - `client/src/App.tsx` — App router
 - `client/src/index.css` — Theme variables (dark by default)
 - `server/routes.ts` — API routes (minimal)
@@ -48,21 +51,30 @@ A dark, terminal/developer-themed portfolio website for Meg — a Computer Scien
 ## Sections (in order)
 1. **Hero** — Avatar + terminal greeting, code snippet block, loaded modules badges
 2. **About** — Profile card with avatar/location/school, terminal bio (whoami/cat), stats cards
-3. **Skills** — Large badge grid of all technologies
-4. **Experience** — Git log timeline with commit hashes, branches, file stats
-5. **Featured Projects** — Project cards with tech badges, demo/code buttons
-6. **GitHub Activity** — Live GitHub profile + recent repos via API
-7. **Contact** — JSON contact info block (email, location, github) + code editor-styled form
-8. **Footer** — Monospace branding + email/github links
+3. **Skills** — Interactive orbital constellation graph with 23 tech skill nodes, drag-to-explore, connecting lines, brand icons (react-icons/si)
+4. **Experience** — Alternating zigzag git log timeline with colored gradient markers, floating date badges, commit metadata
+5. **Projects** — Split layout: GitHub repo list sidebar (live data) + 3 pinned featured project cards with tech badges and demo buttons
+6. **Contact** — JSON contact info block (email, location, github) + code editor-styled form
+7. **Footer** — Monospace branding + email/github links
+
+## Skills Graph (skills-graph.tsx)
+- Canvas-based orbital visualization with React DOM icon overlays
+- 23 skill nodes in 3 concentric orbits with brand icons from react-icons/si
+- Mouse drag to rotate (pointer capture for smooth dragging)
+- Gentle floating animation using requestAnimationFrame (positions stored in refs, not state)
+- Connecting lines between nearby nodes (Obsidian graph style)
+- Central glowing sphere with accent color
+- Responsive: smaller nodes and tighter orbits on mobile
+- "Drag to explore skills universe" hint bar
 
 ## GitHub Integration
-- Component: `client/src/components/github-section.tsx`
+- Data fetched via React Query (useQuery) with 10-minute staleTime
 - Username constant: `GITHUB_USERNAME = "msmall2691-eng"`
-- Uses public GitHub REST API (no auth required)
-- localStorage caching with 10-minute TTL
-- Loading skeletons, error state, profile info, and repo cards
+- Fetches user profile + up to 30 repos from public GitHub REST API
+- Repo list rendered in Projects section sidebar
+- Loading skeletons and error state handling
 
 ## Navigation
-- Fixed dark navbar with avatar + all section links
+- Fixed dark navbar with avatar + 6 section links (Home, About, Skills, Experience, Projects, Contact)
 - Mobile hamburger menu
 - Smooth scroll with 64px offset for fixed nav
