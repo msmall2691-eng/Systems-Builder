@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import GithubSection from "@/components/github-section";
 import {
   ArrowUpRight,
   Github,
@@ -93,6 +94,13 @@ function Navbar() {
             data-testid="link-projects"
           >
             Projects
+          </button>
+          <button
+            onClick={() => scrollToSection("github")}
+            className="text-[14px] text-[#6B7280] transition-colors duration-200 cursor-pointer"
+            data-testid="link-github"
+          >
+            GitHub
           </button>
           <button
             onClick={() => scrollToSection("about")}
@@ -485,6 +493,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Projects />
+      <GithubSection />
       <About />
       <Contact />
       <Footer />

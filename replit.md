@@ -34,6 +34,14 @@ A clean, modern, developer-focused portfolio website for Meg — a systems build
 ## Sections
 1. **Hero** — Name, headline, subheading, two CTA buttons
 2. **Featured Projects** — 3 project cards (Scheduling Dashboard, Internal CRM, Workflow Automation)
-3. **About** — Professional bio + skills grouped by category (Frontend, Backend, Data, Tools)
-4. **Contact** — CTA with Email, GitHub, LinkedIn buttons
-5. **Footer** — Copyright + social links
+3. **GitHub Activity** — Live GitHub profile summary + 6 most recent repos (fetched from GitHub REST API, cached in localStorage for 10 min)
+4. **About** — Professional bio + skills grouped by category (Frontend, Backend, Data, Tools)
+5. **Contact** — CTA with Email, GitHub, LinkedIn buttons
+6. **Footer** — Copyright + social links
+
+## GitHub Integration
+- Component: `client/src/components/github-section.tsx`
+- Username constant: `GITHUB_USERNAME = "msmall2691-eng"` (change at top of file)
+- Uses public GitHub REST API (no auth required)
+- localStorage caching with 10-minute TTL to reduce rate limit issues
+- Shows loading skeletons, error state, profile info, and repo cards
