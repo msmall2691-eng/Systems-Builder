@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import GithubSection from "@/components/github-section";
+import avatarImg from "@assets/IMG_2049_1772134195061.png";
 import {
   ArrowUpRight,
   Github,
@@ -321,9 +322,12 @@ function About() {
           <div className="lg:col-span-1">
             <Card className="border border-border bg-card rounded-md p-6">
               <div className="flex flex-col items-center text-center">
-                <div className="w-24 h-24 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center mb-4">
-                  <span className="text-primary font-bold text-3xl">M</span>
-                </div>
+                <img
+                  src={avatarImg}
+                  alt="Meg"
+                  className="w-24 h-24 rounded-full border-2 border-primary/40 object-cover mb-4"
+                  data-testid="img-avatar"
+                />
                 <div className="space-y-2 w-full mt-2">
                   <div className="flex items-center justify-between gap-2 text-[13px]">
                     <span className="text-muted-foreground font-mono">OPERATOR</span>
