@@ -1,7 +1,16 @@
 # Meg Portfolio Website
 
 ## Overview
-A dark, terminal/developer-themed portfolio website for Meg — a systems builder and Computer Science student. Inspired by abdulmomin.dev with code editor UI metaphors, git-style section headers, and a developer aesthetic.
+A dark, terminal/developer-themed portfolio website for Meg — a Computer Science student at the University of Southern Maine (Software Engineering concentration) and founder of The Maine Cleaning Company. Inspired by abdulmomin.dev with code editor UI metaphors, git-style section headers, and a developer aesthetic.
+
+## Real Info
+- **Name**: Meg
+- **Email**: megan.small@maine.edu
+- **Location**: Portland, Maine
+- **School**: University of Southern Maine — CS, Software Engineering concentration
+- **Business**: The Maine Cleaning Company (founder)
+- **GitHub**: msmall2691-eng
+- **LinkedIn**: Not yet created
 
 ## Architecture
 - **Frontend-only** portfolio site built with React + TypeScript
@@ -32,16 +41,19 @@ A dark, terminal/developer-themed portfolio website for Meg — a systems builde
 - `client/src/App.tsx` — App router
 - `client/src/index.css` — Theme variables (dark by default)
 - `server/routes.ts` — API routes (minimal)
+- `client/public/favicon.png` — Circular favicon (64x64) from Meg's logo
+- `client/public/favicon-32.png` — Circular favicon (32x32)
+- `attached_assets/IMG_2049_1772134195061.png` — Meg's photo (used in hero, about, navbar)
 
 ## Sections (in order)
-1. **Hero** — Terminal-style greeting, code snippet block, loaded modules badges
-2. **About** — Profile card, terminal bio (whoami/cat), stats cards
+1. **Hero** — Avatar + terminal greeting, code snippet block, loaded modules badges
+2. **About** — Profile card with avatar/location/school, terminal bio (whoami/cat), stats cards
 3. **Skills** — Large badge grid of all technologies
 4. **Experience** — Git log timeline with commit hashes, branches, file stats
 5. **Featured Projects** — Project cards with tech badges, demo/code buttons
 6. **GitHub Activity** — Live GitHub profile + recent repos via API
-7. **Contact** — JSON contact info block + code editor-styled form
-8. **Footer** — Monospace branding + social links
+7. **Contact** — JSON contact info block (email, location, github) + code editor-styled form
+8. **Footer** — Monospace branding + email/github links
 
 ## GitHub Integration
 - Component: `client/src/components/github-section.tsx`
@@ -51,6 +63,6 @@ A dark, terminal/developer-themed portfolio website for Meg — a systems builde
 - Loading skeletons, error state, profile info, and repo cards
 
 ## Navigation
-- Fixed dark navbar with all section links
+- Fixed dark navbar with avatar + all section links
 - Mobile hamburger menu
 - Smooth scroll with 64px offset for fixed nav

@@ -7,7 +7,6 @@ import avatarImg from "@assets/IMG_2049_1772134195061.png";
 import {
   ArrowUpRight,
   Github,
-  Linkedin,
   Mail,
   Calendar,
   Users,
@@ -53,7 +52,7 @@ const experiences = [
     branch: "founder",
     dateRange: "2023 - Present",
     title: "Founder & Systems Builder",
-    company: "Service Business",
+    company: "The Maine Cleaning Company",
     description: "Built internal workflow tools and dashboards to manage operations. Created scheduling systems, CRM tools, and automation pipelines that replaced manual processes across the business.",
     tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "REST APIs", "Tailwind CSS"],
     filesChanged: 24,
@@ -65,8 +64,8 @@ const experiences = [
     branch: "student",
     dateRange: "2024 - Present",
     title: "Computer Science Student",
-    company: "University",
-    description: "Studying data structures, algorithms, and software engineering. Applying theoretical knowledge to practical projects and deepening full-stack development skills.",
+    company: "University of Southern Maine",
+    description: "Studying Computer Science with a Software Engineering concentration. Applying theoretical knowledge to practical projects and deepening full-stack development skills.",
     tech: ["Python", "Java", "SQL", "Data Structures", "Algorithms"],
     filesChanged: 18,
     insertions: 220,
@@ -131,9 +130,10 @@ function Navbar() {
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
         <button
           onClick={() => scrollToSection("hero")}
-          className="font-mono text-[15px] font-semibold tracking-tight text-primary"
+          className="flex items-center gap-2.5 font-mono text-[15px] font-semibold tracking-tight text-primary"
           data-testid="link-home"
         >
+          <img src={avatarImg} alt="Meg" className="w-7 h-7 rounded-full object-cover border border-primary/40" />
           &lt;Meg /&gt;
         </button>
         <div className="hidden md:flex items-center gap-6">
@@ -187,12 +187,22 @@ function Hero() {
       <div className="max-w-5xl mx-auto px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="font-mono text-primary text-sm mb-4" data-testid="text-system-init">
-              &lt;System.Init /&gt;
-            </p>
-            <p className="font-mono text-muted-foreground text-xs mb-8 tracking-wider">
-              SYSTEM.KERNEL :: v1.0.0 ONLINE
-            </p>
+            <div className="flex items-center gap-4 mb-6">
+              <img
+                src={avatarImg}
+                alt="Meg"
+                className="w-16 h-16 rounded-full object-cover border-2 border-primary/40"
+                data-testid="img-hero-avatar"
+              />
+              <div>
+                <p className="font-mono text-primary text-sm" data-testid="text-system-init">
+                  &lt;System.Init /&gt;
+                </p>
+                <p className="font-mono text-muted-foreground text-xs tracking-wider">
+                  PORTLAND, ME :: v1.0.0 ONLINE
+                </p>
+              </div>
+            </div>
             <h1
               className="text-foreground font-bold leading-[1.1] mb-4"
               style={{ fontSize: "48px" }}
@@ -208,7 +218,7 @@ function Hero() {
               style={{ fontSize: "17px", lineHeight: "1.7" }}
               data-testid="text-subheading"
             >
-              Building automation tools and web applications that simplify complex workflows. Focused on operations systems, scheduling, and practical software.
+              CS student and systems thinker turning messy workflows into simple, usable software. From running a business to building the tools that power them.
             </p>
             <div className="flex items-center gap-3 flex-wrap mb-10">
               <Button
@@ -284,7 +294,7 @@ function Hero() {
                 </div>
                 <div className="flex">
                   <span className="text-muted-foreground w-8 text-right mr-4 select-none">9</span>
-                  <span>{"      "}<span className="text-blue-300">focus</span>=<span className="text-green-400">"Automation & Web Apps"</span></span>
+                  <span>{"      "}<span className="text-blue-300">focus</span>=<span className="text-green-400">"Automation & Operations"</span></span>
                 </div>
                 <div className="flex">
                   <span className="text-muted-foreground w-8 text-right mr-4 select-none">10</span>
@@ -338,6 +348,17 @@ function About() {
                     <span className="text-foreground font-medium text-right">SYSTEMS_BUILDER</span>
                   </div>
                   <div className="flex items-center justify-between gap-2 text-[13px]">
+                    <span className="text-muted-foreground font-mono">LOCATION</span>
+                    <span className="text-foreground font-medium flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-primary" />
+                      PORTLAND, ME
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 text-[13px]">
+                    <span className="text-muted-foreground font-mono">SCHOOL</span>
+                    <span className="text-foreground font-medium text-right text-[11px]">USM</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 text-[13px]">
                     <span className="text-muted-foreground font-mono">STATUS</span>
                     <Badge variant="secondary" className="text-[11px] font-mono">
                       <CircleDot className="w-2.5 h-2.5 mr-1 text-green-400" />
@@ -361,7 +382,7 @@ function About() {
                     <span className="text-green-400">&#10140;</span> whoami
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: "1.7" }} data-testid="text-bio-1">
-                    Systems-minded developer with a background in running a service business. I build scheduling dashboards, CRM tools, and workflow automations that turn operational chaos into clean, reliable systems.
+                    I'm a Computer Science student and systems thinker who enjoys turning messy workflows into simple, usable software. My background running a business led me to build internal tools for scheduling, automation, and operations management — sparking my transition into software development and system design.
                   </p>
                 </div>
                 <div>
@@ -369,7 +390,7 @@ function About() {
                     <span className="text-green-400">&#10140;</span> cat mission.txt
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: "1.7" }} data-testid="text-bio-2">
-                    Currently studying Computer Science while continuing to build practical tools. Focused on bridging the gap between real business needs and clean technical solutions through automation, data, and full-stack development.
+                    Studying Computer Science with a Software Engineering concentration at the University of Southern Maine. Bridging real business needs with clean technical solutions through automation, data, and full-stack development.
                   </p>
                 </div>
               </div>
@@ -587,10 +608,10 @@ function Contact() {
 
   const contactInfo = {
     status: "open_to_work",
-    email: "hello@example.com",
+    email: "megan.small@maine.edu",
+    location: "Portland, ME",
     socials: {
       github: "@msmall2691-eng",
-      linkedin: "@meg",
     },
   };
 
@@ -625,15 +646,15 @@ function Contact() {
               </div>
               <div className="flex">
                 <span className="text-muted-foreground w-6 text-right mr-4 select-none">4</span>
-                <span>{"  "}<span className="text-primary">"socials"</span>: {"{"}</span>
+                <span>{"  "}<span className="text-primary">"location"</span>: <span className="text-green-400">"{contactInfo.location}"</span>,</span>
               </div>
               <div className="flex">
                 <span className="text-muted-foreground w-6 text-right mr-4 select-none">5</span>
-                <span>{"    "}<span className="text-primary">"github"</span>: <span className="text-green-400">"<a href="https://github.com/msmall2691-eng" target="_blank" rel="noopener noreferrer" className="hover:underline">{contactInfo.socials.github}</a>"</span>,</span>
+                <span>{"  "}<span className="text-primary">"socials"</span>: {"{"}</span>
               </div>
               <div className="flex">
                 <span className="text-muted-foreground w-6 text-right mr-4 select-none">6</span>
-                <span>{"    "}<span className="text-primary">"linkedin"</span>: <span className="text-green-400">"<a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:underline">{contactInfo.socials.linkedin}</a>"</span></span>
+                <span>{"    "}<span className="text-primary">"github"</span>: <span className="text-green-400">"<a href="https://github.com/msmall2691-eng" target="_blank" rel="noopener noreferrer" className="hover:underline">{contactInfo.socials.github}</a>"</span></span>
               </div>
               <div className="flex">
                 <span className="text-muted-foreground w-6 text-right mr-4 select-none">7</span>
@@ -697,7 +718,7 @@ function Contact() {
                   className="w-full rounded-md font-mono"
                   onClick={() => {
                     if (formData.name && formData.email && formData.message) {
-                      window.location.href = `mailto:hello@example.com?subject=Portfolio Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${formData.name} (${formData.email})`;
+                      window.location.href = `mailto:megan.small@maine.edu?subject=Portfolio Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${formData.name} (${formData.email})`;
                     }
                   }}
                   data-testid="button-send"
@@ -722,14 +743,11 @@ function Footer() {
           &lt;Meg /&gt; &mdash; Systems Builder
         </p>
         <div className="flex items-center gap-5">
-          <a href="mailto:hello@example.com" className="text-muted-foreground hover:text-foreground transition-colors duration-200" aria-label="Email" data-testid="footer-link-email">
+          <a href="mailto:megan.small@maine.edu" className="text-muted-foreground hover:text-foreground transition-colors duration-200" aria-label="Email" data-testid="footer-link-email">
             <Mail className="w-4 h-4" />
           </a>
           <a href="https://github.com/msmall2691-eng" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors duration-200" aria-label="GitHub" data-testid="footer-link-github">
             <Github className="w-4 h-4" />
-          </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors duration-200" aria-label="LinkedIn" data-testid="footer-link-linkedin">
-            <Linkedin className="w-4 h-4" />
           </a>
         </div>
       </div>
