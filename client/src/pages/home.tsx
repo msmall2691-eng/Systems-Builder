@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -14,53 +15,82 @@ import {
   Database,
   BarChart3,
   Wrench,
-  ArrowDown,
+  Terminal,
+  MapPin,
+  CircleDot,
+  GitCommit,
+  GitBranch,
+  FilePlus,
+  FileMinus,
+  Star,
+  Send,
+  Menu,
+  X,
 } from "lucide-react";
+
+const navLinks = [
+  { label: "Home", id: "hero" },
+  { label: "About", id: "about" },
+  { label: "Skills", id: "skills" },
+  { label: "Experience", id: "experience" },
+  { label: "Projects", id: "projects" },
+  { label: "GitHub", id: "github" },
+  { label: "Contact", id: "contact" },
+];
+
+const skills = [
+  "React", "TypeScript", "JavaScript", "Node.js", "Express",
+  "PostgreSQL", "HTML5", "CSS3", "Tailwind CSS", "Python",
+  "REST APIs", "Git", "Linux", "Figma", "SQL",
+  "Webhooks", "Cron Jobs", "Zod", "Vite", "Postman",
+  "Data Modeling", "Responsive Design", "VS Code",
+];
+
+const experiences = [
+  {
+    hash: "f7a3c1d",
+    branch: "founder",
+    dateRange: "2023 - Present",
+    title: "Founder & Systems Builder",
+    company: "Service Business",
+    description: "Built internal workflow tools and dashboards to manage operations. Created scheduling systems, CRM tools, and automation pipelines that replaced manual processes across the business.",
+    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "REST APIs", "Tailwind CSS"],
+    filesChanged: 24,
+    insertions: 340,
+    deletions: 45,
+  },
+  {
+    hash: "a2b9e4f",
+    branch: "student",
+    dateRange: "2024 - Present",
+    title: "Computer Science Student",
+    company: "University",
+    description: "Studying data structures, algorithms, and software engineering. Applying theoretical knowledge to practical projects and deepening full-stack development skills.",
+    tech: ["Python", "Java", "SQL", "Data Structures", "Algorithms"],
+    filesChanged: 18,
+    insertions: 220,
+    deletions: 30,
+  },
+];
 
 const projects = [
   {
     title: "Scheduling Dashboard",
-    description:
-      "Built for a service business managing 50+ weekly appointments. Replaced a spreadsheet-based system with a real-time dashboard that reduced scheduling conflicts by 80% and saved 10+ hours per week.",
+    description: "Built for a service business managing 50+ weekly appointments. Replaced a spreadsheet-based system with a real-time dashboard that reduced scheduling conflicts by 80% and saved 10+ hours per week.",
     tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS"],
     icon: Calendar,
   },
   {
     title: "Internal CRM Tool",
-    description:
-      "Designed and developed a lightweight CRM to track client interactions, job history, and follow-ups. Centralized scattered data into one interface, improving client retention through better communication tracking.",
+    description: "Designed and developed a lightweight CRM to track client interactions, job history, and follow-ups. Centralized scattered data into one interface, improving client retention through better communication tracking.",
     tech: ["React", "Express", "PostgreSQL", "REST API", "Zod"],
     icon: Users,
   },
   {
     title: "Workflow Automation System",
-    description:
-      "Created an automation layer that syncs job data across scheduling, invoicing, and communication tools. Eliminated manual data entry across 3 platforms and reduced operational errors by 60%.",
+    description: "Created an automation layer that syncs job data across scheduling, invoicing, and communication tools. Eliminated manual data entry across 3 platforms and reduced operational errors by 60%.",
     tech: ["Node.js", "Webhooks", "REST APIs", "Cron Jobs", "TypeScript"],
     icon: Workflow,
-  },
-];
-
-const skillGroups = [
-  {
-    label: "Frontend",
-    icon: Code2,
-    skills: ["React", "TypeScript", "Tailwind CSS", "HTML/CSS", "Responsive Design"],
-  },
-  {
-    label: "Backend",
-    icon: Database,
-    skills: ["Node.js", "Express", "REST APIs", "PostgreSQL", "Authentication"],
-  },
-  {
-    label: "Data",
-    icon: BarChart3,
-    skills: ["SQL", "Data Modeling", "ETL Pipelines", "Reporting Dashboards"],
-  },
-  {
-    label: "Tools",
-    icon: Wrench,
-    skills: ["Git", "VS Code", "Linux", "Figma", "Postman"],
   },
 ];
 
@@ -73,51 +103,74 @@ function scrollToSection(id: string) {
   }
 }
 
+function SectionHeader({ tag, title }: { tag: string; title: string }) {
+  return (
+    <div className="mb-12">
+      <p className="font-mono text-primary text-sm mb-3" data-testid={`tag-${tag.toLowerCase().replace(/[^a-z]/g, "")}`}>
+        {tag}
+      </p>
+      <h2
+        className="text-foreground font-bold"
+        style={{ fontSize: "36px", lineHeight: "1.2" }}
+      >
+        {title}
+      </h2>
+    </div>
+  );
+}
+
 function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100"
+      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border"
       data-testid="navbar"
     >
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
         <button
           onClick={() => scrollToSection("hero")}
-          className="text-[15px] font-semibold tracking-tight text-[#111827]"
+          className="font-mono text-[15px] font-semibold tracking-tight text-primary"
           data-testid="link-home"
         >
-          Meg.
+          &lt;Meg /&gt;
         </button>
-        <div className="flex items-center gap-8">
-          <button
-            onClick={() => scrollToSection("projects")}
-            className="text-[14px] text-[#6B7280] transition-colors duration-200 cursor-pointer"
-            data-testid="link-projects"
-          >
-            Projects
-          </button>
-          <button
-            onClick={() => scrollToSection("github")}
-            className="text-[14px] text-[#6B7280] transition-colors duration-200 cursor-pointer"
-            data-testid="link-github"
-          >
-            GitHub
-          </button>
-          <button
-            onClick={() => scrollToSection("about")}
-            className="text-[14px] text-[#6B7280] transition-colors duration-200 cursor-pointer"
-            data-testid="link-about"
-          >
-            About
-          </button>
-          <button
-            onClick={() => scrollToSection("contact")}
-            className="text-[14px] text-[#6B7280] transition-colors duration-200 cursor-pointer"
-            data-testid="link-contact"
-          >
-            Contact
-          </button>
+        <div className="hidden md:flex items-center gap-6">
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
+              className="text-[13px] text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer"
+              data-testid={`link-${link.id}`}
+            >
+              {link.label}
+            </button>
+          ))}
         </div>
+        <Button
+          size="icon"
+          variant="ghost"
+          className="md:hidden"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          data-testid="button-mobile-menu"
+        >
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </Button>
       </div>
+      {mobileOpen && (
+        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md px-6 py-4 space-y-3">
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => { scrollToSection(link.id); setMobileOpen(false); }}
+              className="block text-[14px] text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer w-full text-left"
+              data-testid={`mobile-link-${link.id}`}
+            >
+              {link.label}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 }
@@ -131,49 +184,312 @@ function Hero() {
       data-testid="section-hero"
     >
       <div className="max-w-5xl mx-auto px-6 w-full">
-        <div className="max-w-3xl">
-          <p
-            className="text-[#417D9F] font-medium text-[15px] tracking-wide uppercase mb-6"
-            data-testid="text-greeting"
-          >
-            Hello, I'm Meg
-          </p>
-          <h1
-            className="text-[#111827] font-bold leading-[1.1] mb-6"
-            style={{ fontSize: "52px" }}
-            data-testid="text-headline"
-          >
-            Systems Builder &<br />
-            Computer Science Student
-          </h1>
-          <p
-            className="text-[#6B7280] mb-10 max-w-xl"
-            style={{ fontSize: "18px", lineHeight: "1.6" }}
-            data-testid="text-subheading"
-          >
-            I build automation tools and web applications that simplify complex
-            workflows. Focused on turning operational chaos into clean, reliable
-            systems.
-          </p>
-          <div className="flex items-center gap-4 flex-wrap">
-            <Button
-              size="lg"
-              onClick={() => scrollToSection("projects")}
-              className="bg-[#417D9F] text-white border-[#417D9F] rounded-md"
-              data-testid="button-view-projects"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="font-mono text-primary text-sm mb-4" data-testid="text-system-init">
+              &lt;System.Init /&gt;
+            </p>
+            <p className="font-mono text-muted-foreground text-xs mb-8 tracking-wider">
+              SYSTEM.KERNEL :: v1.0.0 ONLINE
+            </p>
+            <h1
+              className="text-foreground font-bold leading-[1.1] mb-4"
+              style={{ fontSize: "48px" }}
+              data-testid="text-headline"
             >
-              View Projects
-              <ArrowDown className="w-4 h-4 ml-2" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => scrollToSection("contact")}
-              className="border-[#E5E7EB] text-[#111827] rounded-md"
-              data-testid="button-contact-me"
+              Hello, I'm Meg
+            </h1>
+            <p className="text-primary font-mono text-sm mb-2" data-testid="text-role-tag">
+              &lt;SystemsBuilder /&gt;
+            </p>
+            <p
+              className="text-muted-foreground mb-8 max-w-md"
+              style={{ fontSize: "17px", lineHeight: "1.7" }}
+              data-testid="text-subheading"
             >
-              Contact Me
-            </Button>
+              Building automation tools and web applications that simplify complex workflows. Focused on operations systems, scheduling, and practical software.
+            </p>
+            <div className="flex items-center gap-3 flex-wrap mb-10">
+              <Button
+                size="lg"
+                onClick={() => scrollToSection("projects")}
+                className="rounded-md"
+                data-testid="button-view-projects"
+              >
+                <Terminal className="w-4 h-4 mr-2" />
+                View Projects
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => scrollToSection("contact")}
+                className="rounded-md"
+                data-testid="button-contact-me"
+              >
+                Contact Me
+              </Button>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              {["React", "Node.js", "TypeScript", "PostgreSQL", "Tailwind"].map((mod) => (
+                <Badge key={mod} variant="secondary" className="font-mono text-[11px]" data-testid={`badge-module-${mod.toLowerCase().replace(/[.\s]/g, "")}`}>
+                  {mod.toUpperCase()}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          <div className="hidden lg:block">
+            <Card className="border border-border bg-card rounded-md p-0">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+                <div className="flex gap-1.5">
+                  <span className="w-3 h-3 rounded-full bg-red-500/70" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                  <span className="w-3 h-3 rounded-full bg-green-500/70" />
+                </div>
+                <span className="text-muted-foreground text-[12px] font-mono ml-2">portfolio.tsx</span>
+              </div>
+              <div className="p-5 font-mono text-[13px] leading-relaxed" data-testid="code-block">
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">1</span>
+                  <span className="text-muted-foreground">{"// Welcome to my workspace"}</span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">2</span>
+                  <span><span className="text-purple-400">import</span> {"{ "}<span className="text-primary">Developer</span>{" }"} <span className="text-purple-400">from</span> <span className="text-green-400">'./universe'</span>;</span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">3</span>
+                  <span />
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">4</span>
+                  <span><span className="text-purple-400">const</span> <span className="text-blue-400">Portfolio</span> = () =&gt; {"{"}</span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">5</span>
+                  <span>{"  "}<span className="text-purple-400">return</span> (</span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">6</span>
+                  <span>{"    "}&lt;<span className="text-primary">Developer</span></span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">7</span>
+                  <span>{"      "}<span className="text-blue-300">name</span>=<span className="text-green-400">"Meg"</span></span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">8</span>
+                  <span>{"      "}<span className="text-blue-300">role</span>=<span className="text-green-400">"Systems Builder"</span></span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">9</span>
+                  <span>{"      "}<span className="text-blue-300">focus</span>=<span className="text-green-400">"Automation & Web Apps"</span></span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">10</span>
+                  <span>{"    "}/&gt;</span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">11</span>
+                  <span>{"  "})</span>
+                </div>
+                <div className="flex">
+                  <span className="text-muted-foreground w-8 text-right mr-4 select-none">12</span>
+                  <span>{"};"}</span>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function About() {
+  return (
+    <section
+      id="about"
+      className="py-24"
+      style={{ scrollMarginTop: "64px" }}
+      data-testid="section-about"
+    >
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeader tag="# About.system" title="About Me" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          <div className="lg:col-span-1">
+            <Card className="border border-border bg-card rounded-md p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-24 h-24 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center mb-4">
+                  <span className="text-primary font-bold text-3xl">M</span>
+                </div>
+                <div className="space-y-2 w-full mt-2">
+                  <div className="flex items-center justify-between gap-2 text-[13px]">
+                    <span className="text-muted-foreground font-mono">OPERATOR</span>
+                    <span className="text-foreground font-medium">MEG</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 text-[13px]">
+                    <span className="text-muted-foreground font-mono">ROLE</span>
+                    <span className="text-foreground font-medium text-right">SYSTEMS_BUILDER</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 text-[13px]">
+                    <span className="text-muted-foreground font-mono">STATUS</span>
+                    <Badge variant="secondary" className="text-[11px] font-mono">
+                      <CircleDot className="w-2.5 h-2.5 mr-1 text-green-400" />
+                      OPEN
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          <div className="lg:col-span-2">
+            <Card className="border border-border bg-card rounded-md p-0">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+                <Terminal className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-muted-foreground text-[12px] font-mono">user_profile.log</span>
+              </div>
+              <div className="p-6 space-y-6">
+                <div>
+                  <p className="font-mono text-primary text-[13px] mb-2" data-testid="text-whoami">
+                    <span className="text-green-400">&#10140;</span> whoami
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: "1.7" }} data-testid="text-bio-1">
+                    Systems-minded developer with a background in running a service business. I build scheduling dashboards, CRM tools, and workflow automations that turn operational chaos into clean, reliable systems.
+                  </p>
+                </div>
+                <div>
+                  <p className="font-mono text-primary text-[13px] mb-2" data-testid="text-mission">
+                    <span className="text-green-400">&#10140;</span> cat mission.txt
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: "1.7" }} data-testid="text-bio-2">
+                    Currently studying Computer Science while continuing to build practical tools. Focused on bridging the gap between real business needs and clean technical solutions through automation, data, and full-stack development.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <div className="grid grid-cols-3 gap-4 mt-4">
+              <Card className="border border-border bg-card rounded-md p-4 text-center">
+                <p className="text-primary font-bold text-2xl font-mono" data-testid="stat-experience">2+</p>
+                <p className="text-muted-foreground text-[12px] font-mono mt-1">YRS EXP</p>
+              </Card>
+              <Card className="border border-border bg-card rounded-md p-4 text-center">
+                <p className="text-primary font-bold text-2xl font-mono" data-testid="stat-projects">10+</p>
+                <p className="text-muted-foreground text-[12px] font-mono mt-1">PROJECTS</p>
+              </Card>
+              <Card className="border border-border bg-card rounded-md p-4 text-center">
+                <p className="text-primary font-bold text-2xl font-mono" data-testid="stat-tools">5+</p>
+                <p className="text-muted-foreground text-[12px] font-mono mt-1">TOOLS BUILT</p>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Skills() {
+  return (
+    <section
+      id="skills"
+      className="py-24"
+      style={{ scrollMarginTop: "64px" }}
+      data-testid="section-skills"
+    >
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeader tag="# Skills.json" title="Tech Stack" />
+        <div className="flex flex-wrap gap-3" data-testid="skills-grid">
+          {skills.map((skill) => (
+            <Badge
+              key={skill}
+              variant="secondary"
+              className="text-[13px] font-mono border border-border"
+              data-testid={`badge-skill-${skill.toLowerCase().replace(/[\s/.]/g, "-")}`}
+            >
+              {skill}
+            </Badge>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Experience() {
+  return (
+    <section
+      id="experience"
+      className="py-24"
+      style={{ scrollMarginTop: "64px" }}
+      data-testid="section-experience"
+    >
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeader tag="$ git log --stat --oneline" title="Experience" />
+
+        <div className="relative">
+          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-border hidden md:block" />
+
+          <div className="space-y-8">
+            {experiences.map((exp, index) => (
+              <div key={index} className="relative flex gap-6" data-testid={`experience-entry-${index}`}>
+                <div className="hidden md:flex flex-col items-center pt-1">
+                  <div className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center z-10">
+                    <GitCommit className="w-4 h-4 text-primary" />
+                  </div>
+                </div>
+
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2 flex-wrap">
+                    <span className="font-mono text-primary text-[12px]">{exp.hash}</span>
+                    <Badge variant="secondary" className="font-mono text-[11px]">
+                      <GitBranch className="w-3 h-3 mr-1" />
+                      {exp.branch}
+                    </Badge>
+                    <span className="text-muted-foreground text-[12px] font-mono">{exp.dateRange}</span>
+                  </div>
+
+                  <Card className="border border-border bg-card rounded-md p-6">
+                    <h3 className="text-foreground font-semibold mb-1" style={{ fontSize: "18px" }} data-testid={`text-exp-title-${index}`}>
+                      {exp.title} <span className="text-muted-foreground font-normal">@ {exp.company}</span>
+                    </h3>
+                    <p className="text-muted-foreground mb-4" style={{ fontSize: "15px", lineHeight: "1.7" }} data-testid={`text-exp-desc-${index}`}>
+                      {exp.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {exp.tech.map((t) => (
+                        <Badge key={t} variant="secondary" className="font-mono text-[11px]">
+                          {t}
+                        </Badge>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-4 text-[12px] font-mono text-muted-foreground flex-wrap">
+                      <span>{exp.filesChanged} files changed</span>
+                      <span className="text-green-400 flex items-center gap-1">
+                        <FilePlus className="w-3 h-3" />+{exp.insertions}
+                      </span>
+                      <span className="text-red-400 flex items-center gap-1">
+                        <FileMinus className="w-3 h-3" />-{exp.deletions}
+                      </span>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+            ))}
+
+            <div className="relative flex gap-6">
+              <div className="hidden md:flex flex-col items-center pt-1">
+                <div className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center z-10">
+                  <Star className="w-4 h-4 text-muted-foreground" />
+                </div>
+              </div>
+              <div className="flex-1 pt-2">
+                <p className="font-mono text-muted-foreground text-[13px]">Initial Commit (Hello World)</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -190,58 +506,42 @@ function Projects() {
       data-testid="section-projects"
     >
       <div className="max-w-5xl mx-auto px-6">
-        <p className="text-[#417D9F] font-medium text-[14px] tracking-wide uppercase mb-3">
-          Portfolio
-        </p>
-        <h2
-          className="text-[#111827] font-bold mb-4"
-          style={{ fontSize: "36px", lineHeight: "1.2" }}
-          data-testid="text-projects-title"
-        >
-          Featured Projects
-        </h2>
-        <p
-          className="text-[#6B7280] mb-14 max-w-xl"
-          style={{ fontSize: "18px", lineHeight: "1.6" }}
-        >
-          Real tools built to solve real problems. Each project started with a
-          pain point and ended with a working system.
-        </p>
+        <SectionHeader tag="$ ls -la ~/projects" title="Featured Projects" />
 
-        <div className="grid grid-cols-1 gap-8">
+        <div className="grid grid-cols-1 gap-6">
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="border border-[#F3F4F6] bg-white rounded-md p-0"
+              className="border border-border bg-card rounded-md p-0 hover-elevate transition-all duration-200"
               data-testid={`card-project-${index}`}
             >
               <div className="flex flex-col md:flex-row">
-                <div className="md:w-2/5 bg-[#F9FAFB] flex items-center justify-center p-10 md:rounded-l-md">
-                  <div className="w-full aspect-video bg-[#F3F4F6] rounded-md flex items-center justify-center border border-[#E5E7EB]">
-                    <project.icon className="w-12 h-12 text-[#417D9F] opacity-40" />
+                <div className="md:w-2/5 bg-accent flex items-center justify-center p-10 md:rounded-l-md">
+                  <div className="w-full aspect-video bg-card rounded-md flex items-center justify-center border border-border">
+                    <project.icon className="w-12 h-12 text-primary opacity-40" />
                   </div>
                 </div>
                 <div className="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
                   <h3
-                    className="text-[#111827] font-semibold mb-3"
-                    style={{ fontSize: "22px" }}
+                    className="text-foreground font-semibold mb-3"
+                    style={{ fontSize: "20px" }}
                     data-testid={`text-project-title-${index}`}
                   >
                     {project.title}
                   </h3>
                   <p
-                    className="text-[#6B7280] mb-6"
-                    style={{ fontSize: "18px", lineHeight: "1.6" }}
+                    className="text-muted-foreground mb-5"
+                    style={{ fontSize: "15px", lineHeight: "1.7" }}
                     data-testid={`text-project-desc-${index}`}
                   >
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-2 mb-5">
                     {project.tech.map((t) => (
                       <Badge
                         key={t}
                         variant="secondary"
-                        className="bg-[#F3F4F6] text-[#374151] border-none font-normal text-[13px]"
+                        className="font-mono text-[11px]"
                         data-testid={`badge-tech-${t.toLowerCase().replace(/[\s/]/g, "-")}`}
                       >
                         {t}
@@ -252,19 +552,19 @@ function Projects() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-[#E5E7EB] text-[#111827] rounded-md text-[13px]"
+                      className="rounded-md text-[13px]"
                       data-testid={`button-demo-${index}`}
                     >
-                      Live Demo
+                      Demo
                       <ArrowUpRight className="w-3.5 h-3.5 ml-1.5" />
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-[#E5E7EB] text-[#111827] rounded-md text-[13px]"
+                      className="rounded-md text-[13px]"
                       data-testid={`button-code-${index}`}
                     >
-                      Source Code
+                      Code
                       <Github className="w-3.5 h-3.5 ml-1.5" />
                     </Button>
                   </div>
@@ -278,102 +578,18 @@ function Projects() {
   );
 }
 
-function About() {
-  return (
-    <section
-      id="about"
-      className="bg-[#FAFAFA] py-24"
-      style={{ scrollMarginTop: "64px" }}
-      data-testid="section-about"
-    >
-      <div className="max-w-5xl mx-auto px-6">
-        <p className="text-[#417D9F] font-medium text-[14px] tracking-wide uppercase mb-3">
-          About
-        </p>
-        <h2
-          className="text-[#111827] font-bold mb-6"
-          style={{ fontSize: "36px", lineHeight: "1.2" }}
-          data-testid="text-about-title"
-        >
-          A bit about me
-        </h2>
-
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
-          <div className="lg:col-span-3">
-            <p
-              className="text-[#374151] mb-5"
-              style={{ fontSize: "18px", lineHeight: "1.8" }}
-              data-testid="text-bio-1"
-            >
-              I'm a Computer Science student with a background in building and
-              running a service business. Before writing my first line of code in
-              a classroom, I was already building tools to solve real
-              problems — scheduling dashboards, client trackers, and workflow
-              automations that kept my operations running smoothly.
-            </p>
-            <p
-              className="text-[#374151] mb-5"
-              style={{ fontSize: "18px", lineHeight: "1.8" }}
-              data-testid="text-bio-2"
-            >
-              I think in systems. I look at messy processes and see
-              opportunities for clean, structured solutions. My approach combines
-              practical business experience with a growing foundation in
-              computer science — bridging the gap between what businesses need
-              and what technology can deliver.
-            </p>
-            <p
-              className="text-[#374151]"
-              style={{ fontSize: "18px", lineHeight: "1.8" }}
-              data-testid="text-bio-3"
-            >
-              Right now, I'm focused on deepening my skills in full-stack
-              development, data structures, and algorithms while continuing to
-              build practical tools. I believe the best software comes from
-              understanding the problem deeply before writing any code.
-            </p>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h3
-              className="text-[#111827] font-semibold mb-8"
-              style={{ fontSize: "20px" }}
-              data-testid="text-skills-title"
-            >
-              Skills & Tools
-            </h3>
-            <div className="space-y-8">
-              {skillGroups.map((group) => (
-                <div key={group.label} data-testid={`skills-group-${group.label.toLowerCase()}`}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <group.icon className="w-4 h-4 text-[#417D9F]" />
-                    <span className="text-[#111827] font-medium text-[14px]">
-                      {group.label}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <Badge
-                        key={skill}
-                        variant="secondary"
-                        className="bg-white text-[#374151] border border-[#E5E7EB] font-normal text-[13px]"
-                        data-testid={`badge-skill-${skill.toLowerCase().replace(/[\s/]/g, "-")}`}
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Contact() {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+
+  const contactInfo = {
+    status: "open_to_work",
+    email: "hello@example.com",
+    socials: {
+      github: "@msmall2691-eng",
+      linkedin: "@meg",
+    },
+  };
+
   return (
     <section
       id="contact"
@@ -382,63 +598,112 @@ function Contact() {
       data-testid="section-contact"
     >
       <div className="max-w-5xl mx-auto px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-[#417D9F] font-medium text-[14px] tracking-wide uppercase mb-3">
-            Contact
-          </p>
-          <h2
-            className="text-[#111827] font-bold mb-4"
-            style={{ fontSize: "36px", lineHeight: "1.2" }}
-            data-testid="text-contact-title"
-          >
-            Let's build something together.
-          </h2>
-          <p
-            className="text-[#6B7280] mb-10"
-            style={{ fontSize: "18px", lineHeight: "1.6" }}
-            data-testid="text-contact-desc"
-          >
-            I'm always interested in hearing about new projects, collaboration
-            opportunities, or just connecting with fellow builders.
-          </p>
+        <SectionHeader tag="$ ./contact.exe" title="Get in Touch" />
 
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Button
-              size="lg"
-              asChild
-              className="bg-[#417D9F] text-white border-[#417D9F] rounded-md"
-              data-testid="button-email"
-            >
-              <a href="mailto:hello@example.com">
-                <Mail className="w-4 h-4 mr-2" />
-                Email Me
-              </a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="border-[#E5E7EB] text-[#111827] rounded-md"
-              data-testid="button-github"
-            >
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                <Github className="w-4 h-4 mr-2" />
-                GitHub
-              </a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="border-[#E5E7EB] text-[#111827] rounded-md"
-              data-testid="button-linkedin"
-            >
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="w-4 h-4 mr-2" />
-                LinkedIn
-              </a>
-            </Button>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="border border-border bg-card rounded-md p-0">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+              <Code2 className="w-3.5 h-3.5 text-muted-foreground" />
+              <span className="text-muted-foreground text-[12px] font-mono">contact_info.json</span>
+            </div>
+            <div className="p-5 font-mono text-[13px] leading-relaxed" data-testid="contact-json">
+              <div className="flex">
+                <span className="text-muted-foreground w-6 text-right mr-4 select-none">1</span>
+                <span className="text-foreground">{"{"}</span>
+              </div>
+              <div className="flex">
+                <span className="text-muted-foreground w-6 text-right mr-4 select-none">2</span>
+                <span>{"  "}<span className="text-primary">"status"</span>: <span className="text-green-400">"{contactInfo.status}"</span>,</span>
+              </div>
+              <div className="flex">
+                <span className="text-muted-foreground w-6 text-right mr-4 select-none">3</span>
+                <span>{"  "}<span className="text-primary">"email"</span>: <span className="text-green-400">"<a href={`mailto:${contactInfo.email}`} className="hover:underline">{contactInfo.email}</a>"</span>,</span>
+              </div>
+              <div className="flex">
+                <span className="text-muted-foreground w-6 text-right mr-4 select-none">4</span>
+                <span>{"  "}<span className="text-primary">"socials"</span>: {"{"}</span>
+              </div>
+              <div className="flex">
+                <span className="text-muted-foreground w-6 text-right mr-4 select-none">5</span>
+                <span>{"    "}<span className="text-primary">"github"</span>: <span className="text-green-400">"<a href="https://github.com/msmall2691-eng" target="_blank" rel="noopener noreferrer" className="hover:underline">{contactInfo.socials.github}</a>"</span>,</span>
+              </div>
+              <div className="flex">
+                <span className="text-muted-foreground w-6 text-right mr-4 select-none">6</span>
+                <span>{"    "}<span className="text-primary">"linkedin"</span>: <span className="text-green-400">"<a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:underline">{contactInfo.socials.linkedin}</a>"</span></span>
+              </div>
+              <div className="flex">
+                <span className="text-muted-foreground w-6 text-right mr-4 select-none">7</span>
+                <span>{"  }"}</span>
+              </div>
+              <div className="flex">
+                <span className="text-muted-foreground w-6 text-right mr-4 select-none">8</span>
+                <span className="text-foreground">{"}"}</span>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="border border-border bg-card rounded-md p-0">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+              <Terminal className="w-3.5 h-3.5 text-muted-foreground" />
+              <span className="text-muted-foreground text-[12px] font-mono">sendMessage.ts</span>
+            </div>
+            <div className="p-5">
+              <div className="space-y-4">
+                <div>
+                  <label className="font-mono text-muted-foreground text-[12px] mb-1.5 block">
+                    <span className="text-purple-400">const</span> name =
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder='"Your name"'
+                    className="w-full bg-accent border border-border rounded-md px-3 py-2 text-[14px] font-mono text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
+                    data-testid="input-name"
+                  />
+                </div>
+                <div>
+                  <label className="font-mono text-muted-foreground text-[12px] mb-1.5 block">
+                    <span className="text-purple-400">const</span> email =
+                  </label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder='"you@example.com"'
+                    className="w-full bg-accent border border-border rounded-md px-3 py-2 text-[14px] font-mono text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
+                    data-testid="input-email"
+                  />
+                </div>
+                <div>
+                  <label className="font-mono text-muted-foreground text-[12px] mb-1.5 block">
+                    <span className="text-purple-400">const</span> message =
+                  </label>
+                  <textarea
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="`Your message here...`"
+                    rows={4}
+                    className="w-full bg-accent border border-border rounded-md px-3 py-2 text-[14px] font-mono text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary resize-none"
+                    data-testid="input-message"
+                  />
+                </div>
+                <Button
+                  size="lg"
+                  className="w-full rounded-md font-mono"
+                  onClick={() => {
+                    if (formData.name && formData.email && formData.message) {
+                      window.location.href = `mailto:hello@example.com?subject=Portfolio Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${formData.name} (${formData.email})`;
+                    }
+                  }}
+                  data-testid="button-send"
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  Run Script
+                </Button>
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </section>
@@ -447,38 +712,19 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t border-[#F3F4F6] bg-white" data-testid="footer">
+    <footer className="border-t border-border" data-testid="footer">
       <div className="max-w-5xl mx-auto px-6 py-8 flex items-center justify-between gap-4 flex-wrap">
-        <p className="text-[13px] text-[#9CA3AF]" data-testid="text-copyright">
-          Meg &mdash; Systems Builder & CS Student
+        <p className="text-[13px] text-muted-foreground font-mono" data-testid="text-copyright">
+          &lt;Meg /&gt; &mdash; Systems Builder
         </p>
         <div className="flex items-center gap-5">
-          <a
-            href="mailto:hello@example.com"
-            className="text-[#9CA3AF] transition-colors duration-200"
-            aria-label="Email"
-            data-testid="footer-link-email"
-          >
+          <a href="mailto:hello@example.com" className="text-muted-foreground hover:text-foreground transition-colors duration-200" aria-label="Email" data-testid="footer-link-email">
             <Mail className="w-4 h-4" />
           </a>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#9CA3AF] transition-colors duration-200"
-            aria-label="GitHub"
-            data-testid="footer-link-github"
-          >
+          <a href="https://github.com/msmall2691-eng" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors duration-200" aria-label="GitHub" data-testid="footer-link-github">
             <Github className="w-4 h-4" />
           </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#9CA3AF] transition-colors duration-200"
-            aria-label="LinkedIn"
-            data-testid="footer-link-linkedin"
-          >
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors duration-200" aria-label="LinkedIn" data-testid="footer-link-linkedin">
             <Linkedin className="w-4 h-4" />
           </a>
         </div>
@@ -489,12 +735,14 @@ function Footer() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white" data-testid="page-home">
+    <div className="min-h-screen bg-background text-foreground" data-testid="page-home">
       <Navbar />
       <Hero />
+      <About />
+      <Skills />
+      <Experience />
       <Projects />
       <GithubSection />
-      <About />
       <Contact />
       <Footer />
     </div>
