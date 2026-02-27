@@ -949,6 +949,40 @@ function Projects() {
                 </Card>
               ))}
             </div>
+
+            <Card className="border border-border bg-card rounded-md p-5 mt-4" data-testid="card-replit-profiles">
+              <div className="flex items-center gap-2 mb-3">
+                <Code2 className="w-4 h-4 text-primary" />
+                <span className="font-mono text-[13px] text-foreground font-semibold">More on Replit</span>
+              </div>
+              <p className="text-muted-foreground text-[13px] mb-4" style={{ lineHeight: "1.6" }}>
+                Browse all my live apps, prototypes, and experiments across Replit workspaces.
+              </p>
+              <div className="flex items-center gap-3 flex-wrap">
+                <a
+                  href="https://replit.com/@office277"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="link-replit-office277"
+                >
+                  <Button variant="outline" size="sm" className="rounded-md text-[12px] font-mono">
+                    <ExternalLink className="w-3 h-3 mr-1.5" />
+                    @office277
+                  </Button>
+                </a>
+                <a
+                  href="https://replit.com/@info10885"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="link-replit-info10885"
+                >
+                  <Button variant="outline" size="sm" className="rounded-md text-[12px] font-mono">
+                    <ExternalLink className="w-3 h-3 mr-1.5" />
+                    @info10885
+                  </Button>
+                </a>
+              </div>
+            </Card>
           </div>
         </div>
       </div>
