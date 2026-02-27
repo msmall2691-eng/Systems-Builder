@@ -53,7 +53,7 @@ A dark, terminal/developer-themed portfolio website for Meg — a Computer Scien
 2. **About** — Profile card with avatar/location/school, terminal bio (whoami/cat), stats cards
 3. **Skills** — Interactive orbital constellation graph with 23 tech skill nodes, drag-to-explore, connecting lines, brand icons (react-icons/si)
 4. **Experience** — Alternating zigzag git log timeline with colored gradient markers, floating date badges, commit metadata
-5. **Projects** — Split layout: GitHub repo list sidebar (live data) + 3 pinned featured project cards with tech badges and demo buttons
+5. **Projects** — Split layout: GitHub repo list sidebar (live data) + 6 real pinned project cards with gradient headers, status badges (Live/In Development), Demo/Preview/Code buttons, and embedded Replit app preview modal
 6. **Contact** — JSON contact info block (email, location, github) + code editor-styled form
 7. **Footer** — Monospace branding + email/github links
 
@@ -66,6 +66,16 @@ A dark, terminal/developer-themed portfolio website for Meg — a Computer Scien
 - Central glowing sphere with accent color
 - Responsive: smaller nodes and tighter orbits on mobile
 - "Drag to explore skills universe" hint bar
+
+## Pinned Projects (6 real apps)
+1. **Align** — Intelligent operations platform for cleaning services (multi-tenant, cleaner DNA matching, Stripe). Status: In Development.
+2. **JobberBridge** — Integration bridge: Jobber ↔ external systems. Source: @office277. Status: Live.
+3. **JobberToFirestore** — Data pipeline: Jobber → Google Firestore. Source: @office277. Status: Live.
+4. **Maine Clean Team Hub** — Team management for Maine Cleaning Company. Source: @office277. Status: Live.
+5. **CleanSync** — Ops sync across scheduling/invoicing/comms. Source: @office277. Status: Live.
+6. **Knowledge Extractor** — AI-powered knowledge extraction tool. Status: In Development.
+
+Each card has: gradient header with icon, status badge (green=Live, yellow=In Dev), tech badges (max 4 shown + overflow count), and Demo/Preview/Code buttons. Preview opens an embedded Replit iframe modal with macOS-style title bar.
 
 ## GitHub Integration
 - Data fetched via React Query (useQuery) with 10-minute staleTime

@@ -33,6 +33,11 @@ import {
   ExternalLink,
   Eye,
   AlertCircle,
+  Layers,
+  Zap,
+  Brain,
+  Link2,
+  Monitor,
 } from "lucide-react";
 
 const navLinks = [
@@ -81,22 +86,70 @@ const experiences = [
 
 const projects = [
   {
-    title: "Scheduling Dashboard",
-    description: "Built for a service business managing 50+ weekly appointments. Replaced a spreadsheet-based system with a real-time dashboard that reduced scheduling conflicts by 80% and saved 10+ hours per week.",
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS"],
-    icon: Calendar,
+    title: "Align",
+    description: "Intelligent operations platform for cleaning services. Multi-tenant system with cleaner DNA matching, stream-based work assignment, Stripe payments, and role-based access. Assigns cleaners to ongoing care streams based on compatibility, history, and capacity.",
+    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe", "Tailwind CSS"],
+    icon: Layers,
+    status: "In Development" as const,
+    demoUrl: "",
+    codeUrl: "",
+    embedUrl: "",
+    gradient: "linear-gradient(135deg, rgba(59,130,246,0.2), rgba(6,182,212,0.2))",
   },
   {
-    title: "Internal CRM Tool",
-    description: "Designed and developed a lightweight CRM to track client interactions, job history, and follow-ups. Centralized scattered data into one interface, improving client retention through better communication tracking.",
-    tech: ["React", "Express", "PostgreSQL", "REST API", "Zod"],
+    title: "JobberBridge",
+    description: "Integration bridge connecting Jobber field service software to external systems. Automates data sync between Jobber and third-party tools for seamless operations management.",
+    tech: ["Node.js", "TypeScript", "REST APIs", "Webhooks"],
+    icon: Link2,
+    status: "Live" as const,
+    demoUrl: "https://replit.com/@office277/JobberBridge?s=app",
+    codeUrl: "https://replit.com/@office277/JobberBridge",
+    embedUrl: "https://replit.com/@office277/JobberBridge?embed=true",
+    gradient: "linear-gradient(135deg, rgba(34,197,94,0.2), rgba(16,185,129,0.2))",
+  },
+  {
+    title: "JobberToFirestore",
+    description: "Data pipeline that syncs Jobber service data to Google Firestore for real-time analytics, reporting, and cross-platform data access.",
+    tech: ["Node.js", "TypeScript", "Firebase", "Firestore", "REST APIs"],
+    icon: Database,
+    status: "Live" as const,
+    demoUrl: "https://replit.com/@office277/JobberToFirestore?s=app",
+    codeUrl: "https://replit.com/@office277/JobberToFirestore",
+    embedUrl: "https://replit.com/@office277/JobberToFirestore?embed=true",
+    gradient: "linear-gradient(135deg, rgba(249,115,22,0.2), rgba(245,158,11,0.2))",
+  },
+  {
+    title: "Maine Clean Team Hub",
+    description: "Team management hub for The Maine Cleaning Company. Centralizes scheduling, team coordination, and daily operations into a single dashboard for the whole crew.",
+    tech: ["React", "TypeScript", "Node.js", "Tailwind CSS"],
     icon: Users,
+    status: "Live" as const,
+    demoUrl: "https://replit.com/@office277/Maine-Clean-team-hub?s=app",
+    codeUrl: "https://replit.com/@office277/Maine-Clean-team-hub",
+    embedUrl: "https://replit.com/@office277/Maine-Clean-team-hub?embed=true",
+    gradient: "linear-gradient(135deg, rgba(168,85,247,0.2), rgba(139,92,246,0.2))",
   },
   {
-    title: "Workflow Automation System",
-    description: "Created an automation layer that syncs job data across scheduling, invoicing, and communication tools. Eliminated manual data entry across 3 platforms and reduced operational errors by 60%.",
-    tech: ["Node.js", "Webhooks", "REST APIs", "Cron Jobs", "TypeScript"],
-    icon: Workflow,
+    title: "CleanSync",
+    description: "Operations synchronization tool that keeps scheduling, invoicing, and communication platforms in sync. Eliminates manual data entry across multiple business tools.",
+    tech: ["Node.js", "TypeScript", "REST APIs", "Webhooks", "Cron Jobs"],
+    icon: Zap,
+    status: "Live" as const,
+    demoUrl: "https://replit.com/@office277/CleanSync-1?s=app",
+    codeUrl: "https://replit.com/@office277/CleanSync-1",
+    embedUrl: "https://replit.com/@office277/CleanSync-1?embed=true",
+    gradient: "linear-gradient(135deg, rgba(236,72,153,0.2), rgba(244,63,94,0.2))",
+  },
+  {
+    title: "Knowledge Extractor",
+    description: "AI-powered tool for extracting, organizing, and structuring knowledge from various sources into actionable, searchable formats.",
+    tech: ["TypeScript", "Node.js", "AI/LLM", "React"],
+    icon: Brain,
+    status: "In Development" as const,
+    demoUrl: "",
+    codeUrl: "",
+    embedUrl: "",
+    gradient: "linear-gradient(135deg, rgba(234,179,8,0.2), rgba(249,115,22,0.2))",
   },
 ];
 
@@ -659,6 +712,7 @@ function useGitHubData() {
 
 function Projects() {
   const { repos, totalRepos, loading, error } = useGitHubData();
+  const [previewProject, setPreviewProject] = useState<typeof projects[0] | null>(null);
 
   return (
     <section
@@ -775,16 +829,33 @@ function Projects() {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {projects.map((project, index) => (
                 <Card
                   key={index}
-                  className="border border-border bg-card rounded-md p-5 hover-elevate transition-all duration-200"
+                  className="border border-border bg-card rounded-md overflow-hidden hover-elevate transition-all duration-200 flex flex-col"
                   data-testid={`card-project-${index}`}
                 >
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="flex items-center gap-2">
-                      <project.icon className="w-4 h-4 text-primary flex-shrink-0" />
+                  <div className="px-5 py-6 flex items-center justify-center relative" style={{ background: project.gradient }}>
+                    <project.icon className="w-10 h-10 text-foreground/70" />
+                    <div className="absolute top-3 right-3">
+                      <Badge
+                        variant="outline"
+                        className={`font-mono text-[10px] no-default-hover-elevate no-default-active-elevate border-foreground/20 ${
+                          project.status === "Live"
+                            ? "text-green-400 border-green-400/30 bg-green-400/10"
+                            : "text-yellow-400 border-yellow-400/30 bg-yellow-400/10"
+                        }`}
+                        data-testid={`badge-status-${index}`}
+                      >
+                        <CircleDot className="w-2.5 h-2.5 mr-1" />
+                        {project.status}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <div className="p-5 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-2">
                       <h3
                         className="text-foreground font-semibold text-[15px] font-mono"
                         data-testid={`text-project-title-${index}`}
@@ -792,61 +863,88 @@ function Projects() {
                         {project.title}
                       </h3>
                     </div>
-                    <Badge variant="outline" className="font-mono text-[10px] flex-shrink-0 no-default-hover-elevate no-default-active-elevate">
-                      public
-                    </Badge>
-                  </div>
 
-                  <p
-                    className="text-muted-foreground mb-4 line-clamp-2"
-                    style={{ fontSize: "13px", lineHeight: "1.6" }}
-                    data-testid={`text-project-desc-${index}`}
-                  >
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {project.tech.map((t) => (
-                      <Badge
-                        key={t}
-                        variant="secondary"
-                        className="font-mono text-[10px]"
-                        data-testid={`badge-tech-${t.toLowerCase().replace(/[\s/]/g, "-")}`}
-                      >
-                        {t}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between gap-3 flex-wrap">
-                    <div className="flex items-center gap-4 text-[12px] text-muted-foreground font-mono">
-                      {project.tech[0] && (
-                        <div className="flex items-center gap-1">
-                          <span
-                            className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                            style={{ backgroundColor: langColors[project.tech[0]] || "#3178C6" }}
-                          />
-                          <span>{project.tech[0]}</span>
-                        </div>
-                      )}
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3" />
-                        <span>0</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <GitFork className="w-3 h-3" />
-                        <span>0</span>
-                      </div>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="rounded-md text-[12px] font-mono"
-                      data-testid={`button-demo-${index}`}
+                    <p
+                      className="text-muted-foreground mb-4 line-clamp-3 flex-1"
+                      style={{ fontSize: "13px", lineHeight: "1.6" }}
+                      data-testid={`text-project-desc-${index}`}
                     >
-                      Demo
-                      <ArrowUpRight className="w-3 h-3 ml-1" />
-                    </Button>
+                      {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {project.tech.slice(0, 4).map((t) => (
+                        <Badge
+                          key={t}
+                          variant="secondary"
+                          className="font-mono text-[10px]"
+                          data-testid={`badge-tech-${t.toLowerCase().replace(/[\s/]/g, "-")}`}
+                        >
+                          {t}
+                        </Badge>
+                      ))}
+                      {project.tech.length > 4 && (
+                        <Badge variant="secondary" className="font-mono text-[10px]" data-testid={`badge-tech-overflow-${index}`}>
+                          +{project.tech.length - 4}
+                        </Badge>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {project.embedUrl && (
+                        <Button
+                          variant="default"
+                          size="sm"
+                          className="rounded-md text-[12px] font-mono flex-1"
+                          onClick={() => setPreviewProject(project)}
+                          data-testid={`button-preview-${index}`}
+                        >
+                          <Monitor className="w-3 h-3 mr-1" />
+                          Preview
+                        </Button>
+                      )}
+                      {project.demoUrl && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1"
+                          data-testid={`button-demo-${index}`}
+                        >
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="rounded-md text-[12px] font-mono w-full"
+                          >
+                            <ArrowUpRight className="w-3 h-3 mr-1" />
+                            Demo
+                          </Button>
+                        </a>
+                      )}
+                      {project.codeUrl && (
+                        <a
+                          href={project.codeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1"
+                          data-testid={`button-code-${index}`}
+                        >
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="rounded-md text-[12px] font-mono w-full"
+                          >
+                            <Code2 className="w-3 h-3 mr-1" />
+                            Code
+                          </Button>
+                        </a>
+                      )}
+                      {!project.demoUrl && !project.codeUrl && (
+                        <Badge variant="secondary" className="font-mono text-[10px]">
+                          Coming Soon
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                 </Card>
               ))}
@@ -854,6 +952,86 @@ function Projects() {
           </div>
         </div>
       </div>
+
+      {previewProject && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${previewProject.title} Preview`}
+          onClick={() => setPreviewProject(null)}
+          onKeyDown={(e) => { if (e.key === "Escape") setPreviewProject(null); }}
+          tabIndex={-1}
+          ref={(el) => el?.focus()}
+          data-testid="modal-preview-overlay"
+        >
+          <div
+            className="w-full max-w-5xl bg-card border border-border rounded-lg overflow-hidden flex flex-col"
+            style={{ height: "85vh" }}
+            onClick={(e) => e.stopPropagation()}
+            data-testid="modal-preview-content"
+          >
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <span className="w-3 h-3 rounded-full bg-green-500/80" />
+                </div>
+                <span className="font-mono text-[13px] text-foreground font-semibold">
+                  {previewProject.title}
+                </span>
+                <Badge
+                  variant="outline"
+                  className={`font-mono text-[10px] no-default-hover-elevate no-default-active-elevate ${
+                    previewProject.status === "Live"
+                      ? "text-green-400 border-green-400/30"
+                      : "text-yellow-400 border-yellow-400/30"
+                  }`}
+                >
+                  {previewProject.status}
+                </Badge>
+              </div>
+              <div className="flex items-center gap-2">
+                {previewProject.demoUrl && (
+                  <a
+                    href={previewProject.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="modal-button-open-tab"
+                  >
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-[12px] font-mono"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      Open in Tab
+                    </Button>
+                  </a>
+                )}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setPreviewProject(null)}
+                  data-testid="modal-button-close"
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+            <div className="flex-1 bg-black">
+              <iframe
+                src={previewProject.embedUrl}
+                className="w-full h-full border-0"
+                title={`${previewProject.title} Preview`}
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                data-testid="iframe-preview"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
