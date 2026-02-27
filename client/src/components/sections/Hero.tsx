@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import avatarImg from "@assets/IMG_2049_1772134195061.png";
-import { Terminal, ChevronRight } from "lucide-react";
+import { Terminal, ChevronRight, ArrowRight } from "lucide-react";
 import { scrollToSection } from "./shared";
 
 export default function Hero() {
@@ -68,7 +68,7 @@ export default function Hero() {
                 <p className="text-muted-foreground text-[14px]">Cloud-backed tooling (Replit + Firestore + Postgres patterns)</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 flex-wrap mb-10">
+            <div className="mb-10">
               <Button
                 size="lg"
                 onClick={() => scrollToSection("featured")}
@@ -76,17 +76,17 @@ export default function Hero() {
                 data-testid="button-view-projects"
               >
                 <Terminal className="w-4 h-4 mr-2" />
-                Featured Systems
+                Explore Featured Systems
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
+              <button
+                type="button"
                 onClick={() => scrollToSection("contact")}
-                className="rounded-md"
+                className="mt-3 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
                 data-testid="button-contact-me"
               >
-                Contact Me
-              </Button>
+                Or reach out directly
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               {["React", "Node.js", "TypeScript", "PostgreSQL", "Tailwind"].map((mod) => (
