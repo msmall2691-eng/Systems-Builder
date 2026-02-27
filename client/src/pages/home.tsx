@@ -192,7 +192,7 @@ function Navbar() {
           className="flex items-center gap-2.5 font-mono text-[15px] font-semibold tracking-tight text-primary"
           data-testid="link-home"
         >
-          <img src={avatarImg} alt="Meg" className="w-7 h-7 rounded-full object-cover border border-primary/40" />
+          <Terminal className="w-5 h-5 text-primary" />
           &lt;Meg /&gt;
         </button>
         <div className="hidden md:flex items-center gap-6">
