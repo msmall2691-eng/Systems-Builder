@@ -9,14 +9,13 @@ export default function FeaturedSystems() {
   return (
     <section
       id="featured"
-      className="py-24"
-      style={{ scrollMarginTop: "64px" }}
+      className="py-24 lg:pr-20"
       data-testid="section-featured"
     >
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeader tag="$ cat featured_systems.md" title="Featured Systems" />
 
-        <div className="space-y-6">
+        <div className="space-y-6 animate-on-scroll">
           {featuredSystems.map((system, index) => (
             <Card
               key={index}

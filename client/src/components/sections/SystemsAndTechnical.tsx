@@ -8,8 +8,7 @@ export default function SystemsAndTechnical() {
   return (
     <section
       id="systems"
-      className="py-24"
-      style={{ scrollMarginTop: "64px" }}
+      className="py-24 lg:pr-20"
       data-testid="section-systems"
     >
       <div className="max-w-5xl mx-auto px-6">
@@ -23,7 +22,7 @@ export default function SystemsAndTechnical() {
           Many of my projects originate from operational challenges encountered while running and scaling a service business. Identifying inefficiencies and translating them into technical solutions led me to pursue Computer Science and systems development formally.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 animate-on-scroll">
           {systemsExperience.map((category, index) => (
             <Card
               key={index}
@@ -48,7 +47,7 @@ export default function SystemsAndTechnical() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 animate-on-scroll">
           <Card className="border border-border bg-card rounded-md p-0 md:col-span-1" data-testid="card-systems-built">
             <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
               <Wrench className="w-3.5 h-3.5 text-primary" />

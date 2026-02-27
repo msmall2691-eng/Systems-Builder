@@ -38,41 +38,51 @@ A dark, terminal/developer-themed portfolio website for Meg — a Systems Engine
 - Code editor blocks with line numbers and syntax highlighting
 - Git-style commit timeline for Experience
 
+## Visual Effects (abdulmomin.dev inspired)
+- **Grid Background**: Fixed full-screen dot-grid overlay (`.grid-bg` CSS class, 50px grid, primary color at 7% opacity)
+- **Cursor Glow**: Radial gradient (300x300) follows mouse on desktop (`CursorGlow.tsx`), hidden on mobile
+- **Scroll Animations**: Elements fade up on scroll via `.animate-on-scroll` class + IntersectionObserver (`useScrollAnimation.ts`), respects prefers-reduced-motion
+- **Floating Nav (Desktop)**: Right-side vertical dot nav (`fixed right-8 top-1/2`), active section tracked via IntersectionObserver, dashed ring + icon for active dot, hover tooltips with `>` prefix
+- **Bottom Nav (Mobile)**: Fixed bottom bar with icons + labels for each section, replaces old top navbar
+
 ## File Structure
-- `client/src/pages/home.tsx` — Thin page composer (imports and renders all sections)
+- `client/src/pages/home.tsx` — Thin page composer (imports sections + CursorGlow + grid overlay + scroll animation hook)
 - `client/src/components/sections/` — Extracted section components:
-  - `Navbar.tsx`, `Hero.tsx`, `FeaturedSystems.tsx`, `About.tsx`, `SystemsAndTechnical.tsx`, `PlatformsExperience.tsx`, `Skills.tsx`, `Experience.tsx`, `Projects.tsx`, `Contact.tsx`, `Footer.tsx`
-  - `shared.tsx` — shared utilities (`scrollToSection`, `SectionHeader`)
+  - `Navbar.tsx` (floating right-side + mobile bottom nav), `Hero.tsx`, `FeaturedSystems.tsx`, `About.tsx`, `SystemsAndTechnical.tsx`, `PlatformsExperience.tsx`, `Skills.tsx`, `Experience.tsx`, `Projects.tsx`, `Contact.tsx`, `Footer.tsx`
+  - `shared.tsx` — shared utilities (`scrollToSection`, `SectionHeader` with animate-on-scroll)
+- `client/src/components/CursorGlow.tsx` — Mouse-following glow effect (desktop only)
+- `client/src/hooks/useScrollAnimation.ts` — IntersectionObserver hook for scroll-triggered fade-in
 - `client/src/data/` — Static data arrays:
-  - `nav-links.ts`, `experiences.ts`, `projects.ts`, `featured-systems.ts`, `platforms.ts`, `systems.ts`, `github.ts`
+  - `nav-links.ts` (includes lucide icons per link), `experiences.ts`, `projects.ts`, `featured-systems.ts`, `platforms.ts`, `systems.ts`, `github.ts`
 - `client/src/components/skills-graph.tsx` — Interactive skills grid with hover glow effects
 - `client/src/App.tsx` — App router
-- `client/src/index.css` — Theme variables, profile ring animations
+- `client/src/index.css` — Theme variables, profile ring animations, grid-bg, cursor-glow, animate-on-scroll
 - `server/routes.ts` — API routes (minimal)
 - `attached_assets/IMG_2049_1772134195061.png` — Meg's photo
 
 ## Sections (in order)
 1. **Hero** — Avatar with animated rings + "Meg — Systems Engineer" headline, `<AutomationBuilder />` tag, proof bullets (founder→engineer, automation+integrations, cloud tooling), code snippet block
-2. **Featured Systems** (NEW) — 5 featured project cards (JobberBridge, JobberToFirestore, Maine Clean Team Hub, CleanSync, Align) with problem/solution/highlights/tech layout, status badges, demo+code links
+2. **Featured Systems** — 5 featured project cards (JobberBridge, JobberToFirestore, Maine Clean Team Hub, CleanSync, Align) with problem/solution/highlights/tech layout, status badges, demo+code links
 3. **About** — Profile card (SYSTEMS_ENGINEER role), terminal bio with operator-to-engineer narrative (whoami/cat mission.txt), stats (3+ YRS BUILDING, 10+ PROJECTS, 5+ TOOLS BUILT)
 4. **Systems & Technical Experience** — Three category cards (Systems Design, Automation & Integration, Software Dev Practice) + Systems Built/Prototyped checklist + Currently Exploring list + Timeline (2017/2023/2025)
-5. **Platforms & Experience** (NEW) — 4 platform category cards (Cloud & Backend, App Development, Data & Ops Systems, Automation & Integration) with specific tools and usage context
+5. **Platforms & Experience** — 4 platform category cards (Cloud & Backend, App Development, Data & Ops Systems, Automation & Integration) with specific tools and usage context
 6. **Technologies & Systems** — Interactive grid with 5 categories: Development, Systems & Data, Platforms (Jobber/GoHighLevel/Connecteam/Stripe/Replit/GitHub), AI & Automation, Tools
 7. **Experience** — Three entries: Founder & Systems Architect (2017-Present), Systems & Automation Developer (2023-Present), Computer Science Studies (2025-Present) — mid-level language throughout
 8. **Projects** — "Projects built from real operational challenges" tagline + GitHub repo sidebar + 6 pinned project cards + Replit Apps mini-cards + preview modal
 9. **Contact** — JSON contact info + code editor form
 10. **Footer** — `<Meg /> — Systems Engineer`
 
+## Navigation
+- **Desktop (lg+)**: Floating right-side vertical dot nav with IntersectionObserver-based active section tracking, icon dots with hover tooltips
+- **Mobile (<lg)**: Fixed bottom navigation bar with icon + label buttons
+- No top navbar — all sections have no scrollMarginTop offset
+- 8 links: Home, Featured, About, Systems, Platforms, Experience, Projects, Contact
+
 ## Content Strategy
 - **Narrative flow**: Who I am → What I build (Featured) → Proof → Depth → Platforms → Experience → Direction → Contact
 - **Language**: mid-level builder (design, build, implement, architect) not student (learning, exploring)
 - **Key framing sentence**: "Translating operational complexity into practical software systems."
 - **Timeline**: Founder 2017 → Systems Dev 2023 → CS Studies 2025
-
-## Navigation (8 links)
-Home, Featured, About, Systems, Platforms, Experience, Projects, Contact
-- Fixed dark navbar with mobile hamburger menu
-- Smooth scroll with 64px offset
 
 ## Skills Grid (skills-graph.tsx)
 - Interactive grid/tile layout with hover glow effects

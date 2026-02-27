@@ -9,8 +9,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center pt-32 pb-28"
-      style={{ scrollMarginTop: "64px" }}
+      className="min-h-screen flex items-center py-20 lg:pr-20"
       data-testid="section-hero"
     >
       <div className="max-w-5xl mx-auto px-6 w-full">

@@ -43,8 +43,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="py-24"
-      style={{ scrollMarginTop: "64px" }}
+      className="py-24 lg:pr-20"
       data-testid="section-projects"
     >
       <div className="max-w-5xl mx-auto px-6">

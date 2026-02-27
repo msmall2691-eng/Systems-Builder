@@ -7,8 +7,7 @@ export default function PlatformsExperience() {
   return (
     <section
       id="platforms"
-      className="py-24"
-      style={{ scrollMarginTop: "64px" }}
+      className="py-24 lg:pr-20"
       data-testid="section-platforms"
     >
       <div className="max-w-5xl mx-auto px-6">
@@ -22,7 +21,7 @@ export default function PlatformsExperience() {
           Over several years I've built operational software across cloud, low-code, and full-stack environments — selecting tools based on constraints like speed, scalability, and integration surface area.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-on-scroll">
           {platformGroups.map((group, index) => (
             <Card
               key={index}

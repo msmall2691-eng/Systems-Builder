@@ -55,14 +55,13 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="py-24"
-      style={{ scrollMarginTop: "64px" }}
+      className="py-24 lg:pr-20"
       data-testid="section-experience"
     >
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeader tag="$ git log --stat --oneline" title="Experience" />
 
-        <div className="relative">
+        <div className="relative animate-on-scroll">
           <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border hidden md:block" />
 
           <div className="space-y-12 md:space-y-16">

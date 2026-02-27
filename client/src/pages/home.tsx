@@ -9,21 +9,29 @@ import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import CursorGlow from "@/components/CursorGlow";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Home() {
+  useScrollAnimation();
+
   return (
-    <div className="min-h-screen bg-background text-foreground" data-testid="page-home">
-      <Navbar />
-      <Hero />
-      <FeaturedSystems />
-      <About />
-      <SystemsAndTechnical />
-      <PlatformsExperience />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Contact />
-      <Footer />
+    <div className="min-h-screen bg-background text-foreground relative overflow-x-hidden" data-testid="page-home">
+      <CursorGlow />
+      <div className="fixed inset-0 grid-bg pointer-events-none z-0" />
+      <div className="relative z-10 pb-16 lg:pb-0">
+        <Navbar />
+        <Hero />
+        <FeaturedSystems />
+        <About />
+        <SystemsAndTechnical />
+        <PlatformsExperience />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Contact />
+        <Footer />
+      </div>
     </div>
   );
 }

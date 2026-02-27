@@ -8,14 +8,13 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-24"
-      style={{ scrollMarginTop: "64px" }}
+      className="py-24 lg:pr-20"
       data-testid="section-about"
     >
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeader tag="# About.system" title="About Me" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 animate-on-scroll">
           <div className="lg:col-span-1">
             <Card className="border border-border bg-card rounded-md p-6">
               <div className="flex flex-col items-center text-center">
@@ -89,7 +88,7 @@ export default function About() {
               </div>
             </Card>
 
-            <div className="grid grid-cols-3 gap-4 mt-4">
+            <div className="grid grid-cols-3 gap-4 mt-4 animate-on-scroll">
               <Card className="border border-border bg-card rounded-md p-4 text-center">
                 <p className="text-primary font-bold text-2xl font-mono" data-testid="stat-experience">3+</p>
                 <p className="text-muted-foreground text-[12px] font-mono mt-1">YRS BUILDING</p>

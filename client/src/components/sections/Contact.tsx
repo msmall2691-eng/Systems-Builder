@@ -11,8 +11,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-24"
-      style={{ scrollMarginTop: "64px" }}
+      className="py-24 lg:pr-20"
       data-testid="section-contact"
     >
       <div className="max-w-5xl mx-auto px-6">

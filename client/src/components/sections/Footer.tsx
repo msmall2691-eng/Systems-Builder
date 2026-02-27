@@ -2,8 +2,8 @@ import { Mail, Github } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border" data-testid="footer">
-      <div className="max-w-5xl mx-auto px-6 py-8 flex items-center justify-between gap-4 flex-wrap">
+    <footer className="border-t border-border pb-16 lg:pb-0" data-testid="footer">
+      <div className="max-w-5xl mx-auto px-6 py-8 lg:pr-20 flex items-center justify-between gap-4 flex-wrap">
         <p className="text-[13px] text-muted-foreground font-mono" data-testid="text-copyright">
           &lt;Meg /&gt; &mdash; Systems Engineer
         </p>
