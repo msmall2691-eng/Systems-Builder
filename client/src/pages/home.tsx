@@ -42,12 +42,19 @@ import {
   Flame,
   RefreshCw,
   Layout,
+  Cog,
+  Network,
+  Rocket,
+  CheckCircle2,
+  Compass,
+  ChevronRight,
 } from "lucide-react";
 
 const navLinks = [
   { label: "Home", id: "hero" },
   { label: "About", id: "about" },
-  { label: "Skills", id: "skills" },
+  { label: "Systems", id: "systems" },
+  { label: "Technologies", id: "skills" },
   { label: "Experience", id: "experience" },
   { label: "Projects", id: "projects" },
   { label: "Contact", id: "contact" },
@@ -58,22 +65,34 @@ const experiences = [
   {
     hash: "f7a3c1d",
     branch: "founder",
-    dateRange: "2023 - Present",
-    title: "Founder & Systems Builder",
+    dateRange: "2017 - Present",
+    title: "Founder & Automation Engineer",
     company: "The Maine Cleaning Company",
-    description: "Built internal workflow tools and dashboards to manage operations. Created scheduling systems, CRM tools, and automation pipelines that replaced manual processes across the business.",
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "REST APIs", "Tailwind CSS"],
+    description: "Designed and developed internal workflow tools, operational dashboards, and automation pipelines. Evaluated and implemented integrations between CRM, scheduling, and operational platforms to streamline data flow and reduce manual processes across multi-location service operations.",
+    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Jobber", "Stripe", "REST APIs"],
     filesChanged: 24,
     insertions: 340,
     deletions: 45,
   },
   {
+    hash: "b4e2c8a",
+    branch: "systems",
+    dateRange: "2023 - Present",
+    title: "Systems & Automation Developer",
+    company: "Independent",
+    description: "Designed and prototyped software tools addressing real operational challenges, including scheduling automation, job synchronization, and workflow management systems. Built API bridges, data pipelines, and internal dashboards using modern web technologies.",
+    tech: ["TypeScript", "Express", "Drizzle ORM", "OpenAI", "Firebase", "Webhooks"],
+    filesChanged: 32,
+    insertions: 480,
+    deletions: 65,
+  },
+  {
     hash: "a2b9e4f",
     branch: "student",
-    dateRange: "2024 - Present",
-    title: "Computer Science Student",
+    dateRange: "2025 - Present",
+    title: "Computer Science Studies",
     company: "University of Southern Maine",
-    description: "Studying Computer Science with a Software Engineering concentration. Applying theoretical knowledge to practical projects and deepening full-stack development skills.",
+    description: "Expanding knowledge in backend architecture, database systems, and scalable software design. Applying systems thinking from operational experience to formal Computer Science coursework and independent development projects.",
     tech: ["Python", "Java", "SQL", "Data Structures", "Algorithms"],
     filesChanged: 18,
     insertions: 220,
@@ -336,17 +355,24 @@ function Hero() {
               style={{ fontSize: "48px" }}
               data-testid="text-headline"
             >
-              Hello, I'm Meg
+              Meg — Systems Builder
             </h1>
             <p className="text-primary font-mono text-sm mb-2" data-testid="text-role-tag">
-              &lt;SystemsBuilder /&gt;
+              &lt;AutomationEngineer /&gt;
             </p>
             <p
-              className="text-muted-foreground mb-8 max-w-md"
+              className="text-muted-foreground mb-4 max-w-md"
               style={{ fontSize: "17px", lineHeight: "1.7" }}
               data-testid="text-subheading"
             >
-              CS student and systems thinker turning messy workflows into simple, usable software. From running a business to building the tools that power them.
+              I design and build software systems that automate operations, organize data, and turn real-world processes into scalable digital tools.
+            </p>
+            <p
+              className="text-muted-foreground/70 mb-8 max-w-md font-mono italic"
+              style={{ fontSize: "13px", lineHeight: "1.6" }}
+              data-testid="text-tagline"
+            >
+              Translating operational complexity into practical software systems.
             </p>
             <div className="flex items-center gap-3 flex-wrap mb-10">
               <Button
@@ -418,11 +444,11 @@ function Hero() {
                 </div>
                 <div className="flex">
                   <span className="text-muted-foreground w-8 text-right mr-4 select-none">8</span>
-                  <span>{"      "}<span className="text-blue-300">role</span>=<span className="text-green-400">"Systems Builder"</span></span>
+                  <span>{"      "}<span className="text-blue-300">role</span>=<span className="text-green-400">"Automation Engineer"</span></span>
                 </div>
                 <div className="flex">
                   <span className="text-muted-foreground w-8 text-right mr-4 select-none">9</span>
-                  <span>{"      "}<span className="text-blue-300">focus</span>=<span className="text-green-400">"Automation & Operations"</span></span>
+                  <span>{"      "}<span className="text-blue-300">focus</span>=<span className="text-green-400">"Systems & Operations"</span></span>
                 </div>
                 <div className="flex">
                   <span className="text-muted-foreground w-8 text-right mr-4 select-none">10</span>
@@ -479,7 +505,7 @@ function About() {
                   </div>
                   <div className="flex items-center justify-between gap-2 text-[13px]">
                     <span className="text-muted-foreground font-mono">ROLE</span>
-                    <span className="text-foreground font-medium text-right">SYSTEMS_BUILDER</span>
+                    <span className="text-foreground font-medium text-right">AUTOMATION_ENGINEER</span>
                   </div>
                   <div className="flex items-center justify-between gap-2 text-[13px]">
                     <span className="text-muted-foreground font-mono">LOCATION</span>
@@ -516,7 +542,7 @@ function About() {
                     <span className="text-green-400">&#10140;</span> whoami
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: "1.7" }} data-testid="text-bio-1">
-                    I'm a Computer Science student and systems thinker who enjoys turning messy workflows into simple, usable software. My background running a business led me to build internal tools for scheduling, automation, and operations management — sparking my transition into software development and system design.
+                    With a background in business operations and systems design, I began building internal tools to automate scheduling, data tracking, and workflows. This hands-on experience led me to pursue Computer Science formally while continuing to design and prototype real-world software systems.
                   </p>
                 </div>
                 <div>
@@ -524,7 +550,7 @@ function About() {
                     <span className="text-green-400">&#10140;</span> cat mission.txt
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: "1.7" }} data-testid="text-bio-2">
-                    Studying Computer Science with a Software Engineering concentration at the University of Southern Maine. Bridging real business needs with clean technical solutions through automation, data, and full-stack development.
+                    Deepening software engineering practice through Computer Science studies at USM while building production tools that solve real operational problems — from dispatch automation to API integrations and data pipelines.
                   </p>
                 </div>
               </div>
@@ -532,8 +558,8 @@ function About() {
 
             <div className="grid grid-cols-3 gap-4 mt-4">
               <Card className="border border-border bg-card rounded-md p-4 text-center">
-                <p className="text-primary font-bold text-2xl font-mono" data-testid="stat-experience">2+</p>
-                <p className="text-muted-foreground text-[12px] font-mono mt-1">YRS EXP</p>
+                <p className="text-primary font-bold text-2xl font-mono" data-testid="stat-experience">3+</p>
+                <p className="text-muted-foreground text-[12px] font-mono mt-1">YRS BUILDING</p>
               </Card>
               <Card className="border border-border bg-card rounded-md p-4 text-center">
                 <p className="text-primary font-bold text-2xl font-mono" data-testid="stat-projects">10+</p>
@@ -551,6 +577,169 @@ function About() {
   );
 }
 
+const systemsExperience = [
+  {
+    title: "Systems Design & Operations Engineering",
+    icon: Cog,
+    items: [
+      "Designed workflow systems supporting scheduling, dispatching, and reporting across service operations",
+      "Modeled real-world business processes into scalable digital architectures",
+      "Built internal dashboards and automation workflows to eliminate manual coordination",
+    ],
+  },
+  {
+    title: "Automation & Integration",
+    icon: Network,
+    items: [
+      "Implemented API-driven workflows between Jobber, Firestore, and internal tools",
+      "Tested and deployed CRM, scheduling, and communication platform integrations",
+      "Built automation prototypes using AI-assisted development on Replit",
+    ],
+  },
+  {
+    title: "Software Development Practice",
+    icon: Rocket,
+    items: [
+      "Rapid prototyping of production tools using Replit and GitHub",
+      "Database modeling and structured data workflows with PostgreSQL and Drizzle ORM",
+      "Iterative UI and system design with React, TypeScript, and Tailwind",
+    ],
+  },
+];
+
+const systemsBuilt = [
+  "Scheduling & dispatch automation",
+  "Internal CRM concepts",
+  "Job synchronization tools",
+  "Operational dashboards",
+  "Workflow tracking systems",
+  "AI-assisted process tools",
+];
+
+const currentlyExploring = [
+  "Backend architecture",
+  "Database systems",
+  "Automation tooling",
+  "Scalable workflow design",
+  "Software engineering fundamentals",
+];
+
+const timeline = [
+  { year: "2017–Present", label: "Founder & Operator", branch: "main" },
+  { year: "2023–Present", label: "Systems & Automation Development", branch: "dev" },
+  { year: "2025–Present", label: "Computer Science Studies", branch: "cs" },
+];
+
+function SystemsAndTechnical() {
+  return (
+    <section
+      id="systems"
+      className="py-24"
+      style={{ scrollMarginTop: "64px" }}
+      data-testid="section-systems"
+    >
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeader tag="$ cat systems_experience.md" title="Systems & Technical Experience" />
+
+        <p
+          className="text-muted-foreground mb-10 max-w-2xl"
+          style={{ fontSize: "15px", lineHeight: "1.7" }}
+          data-testid="text-systems-intro"
+        >
+          Many of my projects originate from operational challenges encountered while running and scaling a service business. Identifying inefficiencies and translating them into technical solutions led me to pursue Computer Science and systems development formally.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {systemsExperience.map((category, index) => (
+            <Card
+              key={index}
+              className="border border-border bg-card rounded-md p-0"
+              data-testid={`card-systems-${index}`}
+            >
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+                <category.icon className="w-3.5 h-3.5 text-primary" />
+                <span className="text-foreground text-[13px] font-mono font-semibold">{category.title}</span>
+              </div>
+              <div className="p-5 space-y-3">
+                {category.items.map((item, i) => (
+                  <div key={i} className="flex items-start gap-2.5">
+                    <ChevronRight className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
+                    <p className="text-muted-foreground text-[13px]" style={{ lineHeight: "1.6" }}>
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <Card className="border border-border bg-card rounded-md p-0 md:col-span-1" data-testid="card-systems-built">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+              <Wrench className="w-3.5 h-3.5 text-primary" />
+              <span className="text-foreground text-[13px] font-mono font-semibold">Systems Built or Prototyped</span>
+            </div>
+            <div className="p-5 space-y-2.5">
+              {systemsBuilt.map((item, i) => (
+                <div key={i} className="flex items-center gap-2.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-green-400 flex-shrink-0" />
+                  <span className="text-muted-foreground text-[13px] font-mono">{item}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="border border-border bg-card rounded-md p-0 md:col-span-1" data-testid="card-exploring">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+              <Compass className="w-3.5 h-3.5 text-primary" />
+              <span className="text-foreground text-[13px] font-mono font-semibold">Currently Exploring</span>
+            </div>
+            <div className="p-5 space-y-2.5">
+              {currentlyExploring.map((item, i) => (
+                <div key={i} className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                  <span className="text-muted-foreground text-[13px] font-mono">{item}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="border border-border bg-card rounded-md p-0 md:col-span-1" data-testid="card-timeline">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+              <GitCommit className="w-3.5 h-3.5 text-primary" />
+              <span className="text-foreground text-[13px] font-mono font-semibold">Timeline</span>
+            </div>
+            <div className="p-5">
+              <div className="relative space-y-6">
+                <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
+                {timeline.map((entry, i) => (
+                  <div key={i} className="flex items-start gap-4 relative" data-testid={`timeline-entry-${i}`}>
+                    <div
+                      className="w-4 h-4 rounded-full border-2 border-background flex-shrink-0 z-10"
+                      style={{ background: "linear-gradient(135deg, #f97316, #ef4444)" }}
+                    />
+                    <div>
+                      <p className="text-foreground text-[13px] font-semibold">{entry.label}</p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <Badge variant="secondary" className="font-mono text-[10px]">
+                          <GitBranch className="w-2.5 h-2.5 mr-1" />
+                          {entry.branch}
+                        </Badge>
+                        <span className="text-muted-foreground text-[11px] font-mono">{entry.year}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Skills() {
   return (
     <section
@@ -560,7 +749,7 @@ function Skills() {
       data-testid="section-skills"
     >
       <div className="max-w-5xl mx-auto px-6">
-        <SectionHeader tag="# Skills.json" title="Tech Stack" />
+        <SectionHeader tag="# Technologies.json" title="Technologies & Systems" />
         <SkillsGraph />
       </div>
     </section>
@@ -798,6 +987,9 @@ function Projects() {
     >
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeader tag="$ ls -la ~/projects" title="Featured Projects" />
+        <p className="text-muted-foreground/70 font-mono italic text-[13px] -mt-8 mb-8" data-testid="text-projects-tagline">
+          Projects built from real operational challenges.
+        </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-1" data-testid="repos-sidebar">
@@ -1323,7 +1515,7 @@ function Footer() {
     <footer className="border-t border-border" data-testid="footer">
       <div className="max-w-5xl mx-auto px-6 py-8 flex items-center justify-between gap-4 flex-wrap">
         <p className="text-[13px] text-muted-foreground font-mono" data-testid="text-copyright">
-          &lt;Meg /&gt; &mdash; Systems Builder
+          &lt;Meg /&gt; &mdash; Automation Engineer
         </p>
         <div className="flex items-center gap-5">
           <a href="mailto:megan.small@maine.edu" className="text-muted-foreground hover:text-foreground transition-colors duration-200" aria-label="Email" data-testid="footer-link-email">
@@ -1344,6 +1536,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
+      <SystemsAndTechnical />
       <Skills />
       <Experience />
       <Projects />

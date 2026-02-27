@@ -4,10 +4,10 @@ import {
   SiPostgresql, SiHtml5, SiCss3, SiTailwindcss, SiPython,
   SiGit, SiLinux, SiVite, SiPostman,
   SiZod, SiStripe, SiFirebase, SiOpenai, SiDrizzle,
-  SiReplit, SiShadcnui, SiReactquery,
+  SiReplit, SiShadcnui, SiReactquery, SiGithub,
 } from "react-icons/si";
 import { IconType } from "react-icons";
-import { Database, Globe, Webhook, Clock, LayoutGrid, Monitor, Code2, Calendar } from "lucide-react";
+import { Database, Globe, Webhook, Clock, LayoutGrid, Code2, Cpu, Workflow, Cog, BrainCircuit, Cloud, HardDrive } from "lucide-react";
 
 interface Skill {
   label: string;
@@ -23,7 +23,7 @@ interface SkillCategory {
 
 const skillCategories: SkillCategory[] = [
   {
-    name: "Core",
+    name: "Development",
     skills: [
       { label: "React", icon: SiReact, color: "#61DAFB" },
       { label: "TypeScript", icon: SiTypescript, color: "#3178C6" },
@@ -31,33 +31,47 @@ const skillCategories: SkillCategory[] = [
       { label: "Node.js", icon: SiNodedotjs, color: "#339933" },
       { label: "Express", icon: SiExpress, color: "#8899AA" },
       { label: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
-    ],
-  },
-  {
-    name: "Frontend",
-    skills: [
       { label: "HTML5", icon: SiHtml5, color: "#E34F26" },
       { label: "CSS3", icon: SiCss3, color: "#1572B6" },
       { label: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
-      { label: "Shadcn UI", icon: SiShadcnui, color: "#FFFFFF" },
       { label: "Vite", icon: SiVite, color: "#646CFF" },
-      { label: "Responsive", icon: null, lucideIcon: Monitor, color: "#EF5350" },
     ],
   },
   {
-    name: "Backend & Data",
+    name: "Systems & Data",
     skills: [
       { label: "SQL", icon: null, lucideIcon: Database, color: "#4FC3F7" },
       { label: "Drizzle ORM", icon: SiDrizzle, color: "#C5F74F" },
       { label: "Firebase", icon: SiFirebase, color: "#FFCA28" },
       { label: "REST APIs", icon: null, lucideIcon: Globe, color: "#66BB6A" },
       { label: "Webhooks", icon: null, lucideIcon: Webhook, color: "#AB47BC" },
-      { label: "Cron Jobs", icon: null, lucideIcon: Clock, color: "#78909C" },
       { label: "Data Modeling", icon: null, lucideIcon: LayoutGrid, color: "#26A69A" },
+      { label: "Cron Jobs", icon: null, lucideIcon: Clock, color: "#78909C" },
+      { label: "Database Design", icon: null, lucideIcon: HardDrive, color: "#5C6BC0" },
     ],
   },
   {
-    name: "Tools & Platforms",
+    name: "Platforms",
+    skills: [
+      { label: "Jobber", icon: null, lucideIcon: Cog, color: "#2ECC71" },
+      { label: "GoHighLevel", icon: null, lucideIcon: Cloud, color: "#4285F4" },
+      { label: "Connecteam", icon: null, lucideIcon: Cpu, color: "#FF6F00" },
+      { label: "Stripe", icon: SiStripe, color: "#635BFF" },
+      { label: "Replit", icon: SiReplit, color: "#F26207" },
+      { label: "GitHub", icon: SiGithub, color: "#ADBAC7" },
+    ],
+  },
+  {
+    name: "AI & Automation",
+    skills: [
+      { label: "OpenAI", icon: SiOpenai, color: "#412991" },
+      { label: "Workflow Automation", icon: null, lucideIcon: Workflow, color: "#66BB6A" },
+      { label: "Process Optimization", icon: null, lucideIcon: Cog, color: "#78909C" },
+      { label: "AI-assisted Dev", icon: null, lucideIcon: BrainCircuit, color: "#AB47BC" },
+    ],
+  },
+  {
+    name: "Tools",
     skills: [
       { label: "Git", icon: SiGit, color: "#F05032" },
       { label: "Linux", icon: SiLinux, color: "#FCC624" },
@@ -65,16 +79,8 @@ const skillCategories: SkillCategory[] = [
       { label: "Zod", icon: SiZod, color: "#3068B7" },
       { label: "Postman", icon: SiPostman, color: "#FF6C37" },
       { label: "VS Code", icon: null, lucideIcon: Code2, color: "#007ACC" },
-      { label: "Replit", icon: SiReplit, color: "#F26207" },
-    ],
-  },
-  {
-    name: "Services",
-    skills: [
-      { label: "Stripe", icon: SiStripe, color: "#635BFF" },
-      { label: "OpenAI", icon: SiOpenai, color: "#412991" },
+      { label: "Shadcn UI", icon: SiShadcnui, color: "#FFFFFF" },
       { label: "TanStack Query", icon: SiReactquery, color: "#FF4154" },
-      { label: "Google Calendar", icon: null, lucideIcon: Calendar, color: "#4285F4" },
     ],
   },
 ];
