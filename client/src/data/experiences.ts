@@ -1,0 +1,40 @@
+export const experiences = [
+  {
+    hash: "f7a3c1d",
+    branch: "founder",
+    dateRange: "2017 - Present",
+    title: "Founder & Systems Architect",
+    company: "The Maine Cleaning Company",
+    description: "Designed internal workflow tools, operational dashboards, and automation pipelines that replaced manual coordination across multi-location service operations. Implemented CRM, scheduling, and platform integrations to streamline data flow and reduce overhead.",
+    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Jobber", "Stripe", "REST APIs"],
+    filesChanged: 24,
+    insertions: 340,
+    deletions: 45,
+  },
+  {
+    hash: "b4e2c8a",
+    branch: "systems",
+    dateRange: "2023 - Present",
+    title: "Systems & Automation Developer",
+    company: "Independent",
+    description: "Built API bridges, data pipelines, and internal dashboards to solve real operational challenges. Prototyped scheduling automation, job synchronization, and workflow management systems using modern web technologies.",
+    tech: ["TypeScript", "Express", "Drizzle ORM", "OpenAI", "Firebase", "Webhooks"],
+    filesChanged: 32,
+    insertions: 480,
+    deletions: 65,
+  },
+  {
+    hash: "a2b9e4f",
+    branch: "student",
+    dateRange: "2025 - Present",
+    title: "Computer Science Studies",
+    company: "University of Southern Maine",
+    description: "Expanding knowledge in backend architecture, database systems, and scalable software design. Applying systems thinking from operational experience to formal Computer Science coursework and independent development projects.",
+    tech: ["Python", "Java", "SQL", "Data Structures", "Algorithms"],
+    filesChanged: 18,
+    insertions: 220,
+    deletions: 30,
+  },
+];
+
+export type ExperienceEntry = typeof experiences[0];

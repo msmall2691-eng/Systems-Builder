@@ -39,7 +39,12 @@ A dark, terminal/developer-themed portfolio website for Meg — a Systems Engine
 - Git-style commit timeline for Experience
 
 ## File Structure
-- `client/src/pages/home.tsx` — Main portfolio page with all sections
+- `client/src/pages/home.tsx` — Thin page composer (imports and renders all sections)
+- `client/src/components/sections/` — Extracted section components:
+  - `Navbar.tsx`, `Hero.tsx`, `FeaturedSystems.tsx`, `About.tsx`, `SystemsAndTechnical.tsx`, `PlatformsExperience.tsx`, `Skills.tsx`, `Experience.tsx`, `Projects.tsx`, `Contact.tsx`, `Footer.tsx`
+  - `shared.tsx` — shared utilities (`scrollToSection`, `SectionHeader`)
+- `client/src/data/` — Static data arrays:
+  - `nav-links.ts`, `experiences.ts`, `projects.ts`, `featured-systems.ts`, `platforms.ts`, `systems.ts`, `github.ts`
 - `client/src/components/skills-graph.tsx` — Interactive skills grid with hover glow effects
 - `client/src/App.tsx` — App router
 - `client/src/index.css` — Theme variables, profile ring animations
