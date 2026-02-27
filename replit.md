@@ -57,19 +57,22 @@ A dark, terminal/developer-themed portfolio website for Meg — a Computer Scien
 6. **Contact** — JSON contact info block (email, location, github) + code editor-styled form
 7. **Footer** — Monospace branding + email/github links
 
-## Skills Graph (skills-graph.tsx)
-- Canvas-based orbital visualization with React DOM icon overlays
-- 30 skill nodes in 4 concentric orbits with brand icons from react-icons/si
-- Orbit 1 (core): React, TypeScript, JavaScript, Node.js, Express, PostgreSQL
-- Orbit 2 (fundamentals): HTML5, CSS3, Tailwind, Python, Git, Linux, Figma, SQL
-- Orbit 3 (tools/patterns): REST APIs, Vite, Zod, Postman, Webhooks, Cron Jobs, Data Modeling, Responsive, VS Code
-- Orbit 4 (platforms/services): Drizzle ORM, Stripe, OpenAI, Firebase, Replit, Shadcn UI, TanStack Query
-- Mouse drag to rotate (pointer capture for smooth dragging)
-- Gentle floating animation using requestAnimationFrame (positions stored in refs, not state)
-- Connecting lines between nearby nodes (Obsidian graph style)
-- Central glowing sphere with accent color
-- Responsive: smaller nodes and tighter orbits on mobile
-- "Drag to explore skills universe" hint bar
+## Skills Grid (skills-graph.tsx)
+- Interactive grid/tile layout with hover glow effects (replaced canvas orbital visualization)
+- 30 skills grouped into 5 categories: Core, Frontend, Backend & Data, Tools & Platforms, Services
+- Each tile shows brand icon (react-icons/si or lucide fallback) + label
+- Hover effects: border glow in brand color, icon brightens with drop-shadow, background tints with radial gradient, icon scales up, text goes from muted to foreground
+- Responsive grid: 6 columns desktop, 4 tablet, 3 small tablet, 2 mobile
+- Category labels in monospace uppercase
+
+## Profile Image Design
+- Animated concentric circle borders inspired by abdulmomin.dev
+- Outer ring: dashed border with slow 20s spin animation
+- Middle ring: solid border with 15s reverse spin and glow
+- Inner: image with grayscale(80%) → full color on hover
+- Hero avatar: w-28 container, w-20 image
+- About avatar: w-36 container, w-28 image
+- CSS in index.css: .profile-ring-container, .profile-ring-outer/middle/inner
 
 ## Pinned Projects (6 real apps)
 1. **Align** — Multi-tenant operations platform: Cleaner DNA behavioral matching, stream-based work assignment, OpenAI Vision property analysis, Stripe authorize-then-capture payments, 4 user roles. Tech: TypeScript, PostgreSQL, Drizzle ORM, Stripe, OpenAI Vision, Google Calendar API. Status: In Development.

@@ -53,15 +53,6 @@ const navLinks = [
   { label: "Contact", id: "contact" },
 ];
 
-const skills = [
-  "React", "TypeScript", "JavaScript", "Node.js", "Express",
-  "PostgreSQL", "HTML5", "CSS3", "Tailwind CSS", "Python",
-  "REST APIs", "Git", "Linux", "Figma", "SQL",
-  "Webhooks", "Cron Jobs", "Zod", "Vite", "Postman",
-  "Data Modeling", "Responsive Design", "VS Code",
-  "Drizzle ORM", "Stripe", "OpenAI", "Firebase",
-  "Replit", "Shadcn UI", "TanStack Query",
-];
 
 const experiences = [
   {
@@ -97,9 +88,9 @@ const projects = [
     tech: ["TypeScript", "PostgreSQL", "Drizzle ORM", "Stripe", "OpenAI Vision", "Google Calendar API"],
     icon: Layers,
     status: "In Development" as const,
-    demoUrl: "",
-    codeUrl: "",
-    embedUrl: "",
+    demoUrl: "https://replit.com/@info10885/Align?s=app",
+    codeUrl: "https://replit.com/@info10885/Align",
+    embedUrl: "https://replit.com/@info10885/Align?embed=true",
     gradient: "linear-gradient(135deg, rgba(59,130,246,0.2), rgba(6,182,212,0.2))",
   },
   {
@@ -318,13 +309,19 @@ function Hero() {
       <div className="max-w-5xl mx-auto px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="flex items-center gap-4 mb-6">
-              <img
-                src={avatarImg}
-                alt="Meg"
-                className="w-16 h-16 rounded-full object-cover border-2 border-primary/40"
-                data-testid="img-hero-avatar"
-              />
+            <div className="flex items-center gap-6 mb-6">
+              <div className="profile-ring-container w-28 h-28 flex-shrink-0" data-testid="hero-avatar-container">
+                <div className="profile-ring-outer" />
+                <div className="profile-ring-middle" />
+                <div className="profile-ring-inner">
+                  <img
+                    src={avatarImg}
+                    alt="Meg"
+                    className="w-20 h-20 rounded-full object-cover"
+                    data-testid="img-hero-avatar"
+                  />
+                </div>
+              </div>
               <div>
                 <p className="font-mono text-primary text-sm" data-testid="text-system-init">
                   &lt;System.Init /&gt;
@@ -463,12 +460,18 @@ function About() {
           <div className="lg:col-span-1">
             <Card className="border border-border bg-card rounded-md p-6">
               <div className="flex flex-col items-center text-center">
-                <img
-                  src={avatarImg}
-                  alt="Meg"
-                  className="w-24 h-24 rounded-full border-2 border-primary/40 object-cover mb-4"
-                  data-testid="img-avatar"
-                />
+                <div className="profile-ring-container w-36 h-36 mb-4" data-testid="about-avatar-container">
+                  <div className="profile-ring-outer" />
+                  <div className="profile-ring-middle" />
+                  <div className="profile-ring-inner">
+                    <img
+                      src={avatarImg}
+                      alt="Meg"
+                      className="w-28 h-28 rounded-full object-cover"
+                      data-testid="img-avatar"
+                    />
+                  </div>
+                </div>
                 <div className="space-y-2 w-full mt-2">
                   <div className="flex items-center justify-between gap-2 text-[13px]">
                     <span className="text-muted-foreground font-mono">OPERATOR</span>
