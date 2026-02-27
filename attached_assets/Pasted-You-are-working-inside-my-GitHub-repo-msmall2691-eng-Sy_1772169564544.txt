@@ -1,0 +1,138 @@
+You are working inside my GitHub repo: msmall2691-eng/Systems-Builder (this is my portfolio that deploys to MegPortfolio.replit.app). Implement the updates below directly in the codebase and keep everything building/running on Replit.
+
+PROJECT CONTEXT (do not change the architecture)
+- This is a React + TypeScript + Vite frontend served by an Express server.
+- The main page content lives in: client/src/pages/home.tsx (most sections are defined in this single file).
+- Routing uses Wouter; UI uses Tailwind + shadcn components; icons via lucide-react.
+- Keep the dark terminal/dev aesthetic and the existing design language.
+
+PRIMARY GOALS
+1) Make the hero section more “hireable” in the first 5 seconds: clearer positioning + proof.
+2) Add a new section directly after Hero: “Featured Systems” (3–5 flagship systems with problem/solution/impact + stack).
+3) Add a new curated section: “Systems & Platforms Experience” (shows breadth without looking scattered).
+4) Update navigation to include the new Featured Systems anchor.
+5) Improve SEO/share metadata (title/description/OG tags) via the HTML template used by Vite (client/index.html). If that file is missing/empty, fix it so Vite serves a proper index.html with meta tags.
+
+STEP 1 — Inspect and confirm structure
+- Open client/src/pages/home.tsx and identify components inside it (Navbar, Hero, About, SystemsAndTechnical, etc.).
+- Identify where the “Projects” section and pinned project cards are rendered.
+- Do NOT rewrite everything. Prefer targeted edits and reuse existing Card/Badge/Button styles.
+
+STEP 2 — HERO UPGRADES (edit the existing Hero() component in home.tsx)
+Replace the current generic paragraph under the headline with:
+- A tight subheadline (1–2 lines max):
+  “I build software systems that automate real-world operations — dispatch & scheduling workflows, CRM/data integrations, and internal dashboards.”
+- Then add 3 short proof bullets directly under the subheadline (NOT inflated, but confident):
+  • Founder → engineer transition (built systems from live operational constraints)
+  • Production-minded automation + integrations (webhooks, pipelines, sync)
+  • Cloud-backed tooling (Replit + Firestore + Postgres patterns)
+- Update the headline text to either:
+  “Meg — Systems Engineer & Automation Builder”
+  OR keep “Systems Builder” but add “Automation Builder” in the tag line.
+Keep the existing hero UI elements, rings, and editor snippet block.
+
+Update hero CTAs:
+- Change “View Projects” button to scroll to the new Featured Systems section.
+- Keep “Contact Me” as-is.
+
+STEP 3 — ADD SECTION: “Featured Systems” (new section after Hero, before About)
+Create a new component in home.tsx called FeaturedSystems() and render it between <Hero/> and <About/>.
+
+Requirements:
+- Section id must be: "featured" (so we can link/scroll).
+- Add a SectionHeader like your other sections (e.g., `$ cat featured_systems.md`).
+- Show 3–5 feature cards, each with:
+  - Name
+  - 1-line Problem
+  - 1-line Solution
+  - 2–4 bullet highlights focused on what was built (sync, data model, dashboards, automation, etc.)
+  - Stack pills/badges
+  - Buttons: “Demo” and “Code” where you already have URLs; if missing, hide button and add TODO comment.
+
+Use these as Featured Systems (pull from existing data in home.tsx; do not invent):
+1) JobberBridge (webhook/API bridge)
+2) JobberToFirestore (pipeline to Firestore)
+3) Maine Clean Team Hub (internal ops dashboard)
+4) CleanSync (cron/sync layer)
+Optional 5) Align OR Knowledge Extractor (if you can format honestly without inflating)
+
+Implementation guidance:
+- Reuse the existing “projects” array or create a new `featuredSystems` array that references the same URLs/icons and stays easy to edit.
+- Keep visuals consistent with existing cards, gradients, and icon usage.
+
+STEP 4 — ADD SECTION: “Systems & Platforms Experience” (curated breadth)
+Add a new section (id: "platforms") placed after SystemsAndTechnical and before Technologies/Skills (or right after Featured Systems if it reads better).
+
+Title: “Systems & Platforms Experience”
+Purpose: Show breadth without “tool dumping”.
+
+Structure:
+- 4 grouped cards (each as a Card):
+  1) Cloud & Backend
+  2) App Development
+  3) Data & Ops Systems
+  4) Automation & Integration
+- Each group has 4–7 items, and each item MUST include a micro-label (what I used it for), not just the tool name.
+
+Include (truthful to this portfolio + my real experience from replit.md content):
+Cloud & Backend:
+- Firestore / Firebase (real-time data + reporting)
+- PostgreSQL + Drizzle (relational modeling)
+- Express APIs (backend routes)
+- Webhooks / event-driven updates
+
+App Development:
+- React + TypeScript (UI + component systems)
+- Vite (dev/build)
+- Replit deployment workflow
+- Wouter routing
+
+Data & Ops Systems:
+- Jobber (ops CRM + scheduling data source)
+- Internal dashboards / workflow modeling
+- (Only mention GoHighLevel/Connecteam if already present in your skills graph or experience lists; don’t overclaim.)
+
+Automation & Integration:
+- Jobber webhooks
+- Cron sync processes
+- API bridge patterns
+- Data pipeline patterns (Jobber -> Firestore)
+
+Add a short intro paragraph above the cards:
+“Over several years I’ve built operational software across cloud, low-code, and full-stack environments — selecting tools based on constraints like speed, scalability, and integration surface area.”
+
+STEP 5 — NAVIGATION UPDATE
+Update navLinks in home.tsx to include:
+- Featured Systems (id: "featured")
+- Platforms (id: "platforms")
+Make sure the fixed nav scroll offset still works.
+
+STEP 6 — EXPERIENCE/TIMELINE COPY (light edits only)
+- In the “experiences” array, rename “Founder & Automation Engineer” to “Founder & Systems Architect” (keep dates).
+- Keep the descriptions but tighten where possible to outcomes (reduce passive wording).
+- Do not invent metrics. Keep it grounded.
+
+STEP 7 — SEO & SHARE METADATA
+Fix or create the Vite HTML template at client/index.html:
+- Ensure it exists and includes <div id="root"></div> and the Vite script tag to load the app.
+- Set:
+  <title>Meg — Systems Engineer & Automation Builder</title>
+  meta description (150–160 chars): “Systems engineer building operational automation — dispatch workflows, CRM/data integrations, dashboards, and production-minded tools.”
+  OpenGraph tags: og:title, og:description, og:type=website
+- Add a basic favicon reference if present, otherwise add TODO.
+
+IMPORTANT: Some viewers show a blank page because content is SPA-rendered. Ensure index.html contains meaningful meta tags and that the app mounts correctly. Don’t add SSR; just ensure correct HTML shell + metadata.
+
+STEP 8 — QUALITY CHECKS
+- App must still run with `npm run dev` and build with `npm run build`.
+- No broken anchors.
+- No fake links.
+- Keep the same styling language (Tailwind + existing components).
+- Keep sections skimmable and consistent.
+
+DELIVERABLE (after you apply changes)
+1) Summarize what you changed.
+2) List files edited (expect home.tsx, client/index.html, maybe small supporting components).
+3) List TODOs (missing resume PDF, missing OG image, etc.).
+
+Do the work now in this repo.

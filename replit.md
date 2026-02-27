@@ -1,7 +1,7 @@
 # Meg Portfolio Website
 
 ## Overview
-A dark, terminal/developer-themed portfolio website for Meg — a Systems Builder & Automation Engineer, Computer Science student at USM (Software Engineering concentration) and founder of The Maine Cleaning Company. Inspired by abdulmomin.dev with code editor UI metaphors, git-style section headers, and a developer aesthetic. Framed as a builder/engineer portfolio — not a student portfolio.
+A dark, terminal/developer-themed portfolio website for Meg — a Systems Engineer & Automation Builder, Computer Science student at USM (Software Engineering concentration) and founder of The Maine Cleaning Company. Inspired by abdulmomin.dev with code editor UI metaphors, git-style section headers, and a developer aesthetic. Framed as a builder/engineer portfolio — not a student portfolio.
 
 ## Real Info
 - **Name**: Meg (Megan Small)
@@ -47,20 +47,27 @@ A dark, terminal/developer-themed portfolio website for Meg — a Systems Builde
 - `attached_assets/IMG_2049_1772134195061.png` — Meg's photo
 
 ## Sections (in order)
-1. **Hero** — Avatar with animated rings + "Meg — Systems Builder" headline, `<AutomationEngineer />` tag, mid-level builder copy, tagline about translating operational complexity, code snippet block
-2. **About** — Profile card (AUTOMATION_ENGINEER role), terminal bio with operator-to-engineer narrative (whoami/cat mission.txt), stats (3+ YRS BUILDING, 10+ PROJECTS, 5+ TOOLS BUILT)
-3. **Systems & Technical Experience** (NEW) — Three category cards (Systems Design, Automation & Integration, Software Dev Practice) + Systems Built/Prototyped checklist + Currently Exploring list + Timeline (2017/2023/2025)
-4. **Technologies & Systems** — Interactive grid with 5 categories: Development, Systems & Data, Platforms (Jobber/GoHighLevel/Connecteam/Stripe/Replit/GitHub), AI & Automation, Tools
-5. **Experience** — Three entries: Founder & Automation Engineer (2017-Present), Systems & Automation Developer (2023-Present), Computer Science Studies (2025-Present) — mid-level language throughout
-6. **Projects** — "Projects built from real operational challenges" tagline + GitHub repo sidebar + 6 pinned project cards + Replit Apps mini-cards + preview modal
-7. **Contact** — JSON contact info + code editor form
-8. **Footer** — `<Meg /> — Automation Engineer`
+1. **Hero** — Avatar with animated rings + "Meg — Systems Engineer" headline, `<AutomationBuilder />` tag, proof bullets (founder→engineer, automation+integrations, cloud tooling), code snippet block
+2. **Featured Systems** (NEW) — 5 featured project cards (JobberBridge, JobberToFirestore, Maine Clean Team Hub, CleanSync, Align) with problem/solution/highlights/tech layout, status badges, demo+code links
+3. **About** — Profile card (SYSTEMS_ENGINEER role), terminal bio with operator-to-engineer narrative (whoami/cat mission.txt), stats (3+ YRS BUILDING, 10+ PROJECTS, 5+ TOOLS BUILT)
+4. **Systems & Technical Experience** — Three category cards (Systems Design, Automation & Integration, Software Dev Practice) + Systems Built/Prototyped checklist + Currently Exploring list + Timeline (2017/2023/2025)
+5. **Platforms & Experience** (NEW) — 4 platform category cards (Cloud & Backend, App Development, Data & Ops Systems, Automation & Integration) with specific tools and usage context
+6. **Technologies & Systems** — Interactive grid with 5 categories: Development, Systems & Data, Platforms (Jobber/GoHighLevel/Connecteam/Stripe/Replit/GitHub), AI & Automation, Tools
+7. **Experience** — Three entries: Founder & Systems Architect (2017-Present), Systems & Automation Developer (2023-Present), Computer Science Studies (2025-Present) — mid-level language throughout
+8. **Projects** — "Projects built from real operational challenges" tagline + GitHub repo sidebar + 6 pinned project cards + Replit Apps mini-cards + preview modal
+9. **Contact** — JSON contact info + code editor form
+10. **Footer** — `<Meg /> — Systems Engineer`
 
 ## Content Strategy
-- **Narrative**: real-world operations → systems thinking → software solutions → formal CS
+- **Narrative flow**: Who I am → What I build (Featured) → Proof → Depth → Platforms → Experience → Direction → Contact
 - **Language**: mid-level builder (design, build, implement, architect) not student (learning, exploring)
 - **Key framing sentence**: "Translating operational complexity into practical software systems."
 - **Timeline**: Founder 2017 → Systems Dev 2023 → CS Studies 2025
+
+## Navigation (8 links)
+Home, Featured, About, Systems, Platforms, Experience, Projects, Contact
+- Fixed dark navbar with mobile hamburger menu
+- Smooth scroll with 64px offset
 
 ## Skills Grid (skills-graph.tsx)
 - Interactive grid/tile layout with hover glow effects
@@ -87,8 +94,3 @@ A dark, terminal/developer-themed portfolio website for Meg — a Systems Builde
 - Fetched via React Query with 10-min staleTime from public GitHub API
 - Username: `msmall2691-eng`
 - Repo list in Projects section sidebar
-
-## Navigation
-- Fixed dark navbar: Home, About, Systems, Technologies, Experience, Projects, Contact
-- Mobile hamburger menu
-- Smooth scroll with 64px offset

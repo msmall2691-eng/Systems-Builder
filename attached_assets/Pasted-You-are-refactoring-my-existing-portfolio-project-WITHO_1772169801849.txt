@@ -1,0 +1,96 @@
+You are refactoring my existing portfolio project WITHOUT changing visuals, styling, layout, wording, or behavior.
+
+GOAL
+Split client/src/pages/home.tsx into clean reusable React components for maintainability while preserving identical UI output.
+
+IMPORTANT RULES
+- ZERO visual changes
+- ZERO styling changes
+- ZERO copy edits
+- Page must render exactly the same after refactor
+- Only reorganize code structure
+- Keep Tailwind + shadcn usage intact
+- Do not rename CSS classes
+- Do not change animations or layout logic
+
+STEP 1 — Analyze home.tsx
+Open:
+client/src/pages/home.tsx
+
+Identify logical sections already present:
+- Hero
+- Featured Systems (if added)
+- About
+- Systems / Technical Experience
+- Platforms (if added)
+- Timeline / Experience
+- Technologies
+- Contact / Footer
+
+STEP 2 — Create folder structure
+Create:
+
+client/src/components/sections/
+
+STEP 3 — Extract sections
+Move each section into its own file:
+
+Hero.tsx
+FeaturedSystems.tsx
+About.tsx
+Platforms.tsx
+Experience.tsx
+Technologies.tsx
+Contact.tsx
+
+Each component must:
+- export default function ComponentName()
+- contain ONLY the JSX previously used
+- preserve hooks, animations, icons, and styling
+- receive props if needed instead of duplicating logic
+
+STEP 4 — Shared data
+If arrays exist in home.tsx such as:
+- projects
+- experiences
+- skills
+- navLinks
+
+Move them into:
+
+client/src/data/
+
+Example:
+projects.ts
+experience.ts
+platforms.ts
+
+Import them where needed.
+
+STEP 5 — Update home.tsx
+Replace inline JSX with imports:
+
+import Hero from "@/components/sections/Hero";
+import FeaturedSystems from "@/components/sections/FeaturedSystems";
+...
+
+Home page should only compose sections.
+
+STEP 6 — Verify behavior
+Ensure:
+- Navigation scroll anchors still work
+- Buttons still scroll correctly
+- Animations still fire
+- No console errors
+- npm run dev works
+- npm run build succeeds
+
+STEP 7 — Clean imports
+Remove unused imports from home.tsx.
+Ensure paths use existing alias (@/) if configured.
+
+DELIVERABLE
+After refactor:
+1. List all files created.
+2. Confirm UI renders identically.
+3. Confirm build success.

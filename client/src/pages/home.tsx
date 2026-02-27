@@ -52,9 +52,10 @@ import {
 
 const navLinks = [
   { label: "Home", id: "hero" },
+  { label: "Featured", id: "featured" },
   { label: "About", id: "about" },
   { label: "Systems", id: "systems" },
-  { label: "Technologies", id: "skills" },
+  { label: "Platforms", id: "platforms" },
   { label: "Experience", id: "experience" },
   { label: "Projects", id: "projects" },
   { label: "Contact", id: "contact" },
@@ -66,9 +67,9 @@ const experiences = [
     hash: "f7a3c1d",
     branch: "founder",
     dateRange: "2017 - Present",
-    title: "Founder & Automation Engineer",
+    title: "Founder & Systems Architect",
     company: "The Maine Cleaning Company",
-    description: "Designed and developed internal workflow tools, operational dashboards, and automation pipelines. Evaluated and implemented integrations between CRM, scheduling, and operational platforms to streamline data flow and reduce manual processes across multi-location service operations.",
+    description: "Designed internal workflow tools, operational dashboards, and automation pipelines that replaced manual coordination across multi-location service operations. Implemented CRM, scheduling, and platform integrations to streamline data flow and reduce overhead.",
     tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Jobber", "Stripe", "REST APIs"],
     filesChanged: 24,
     insertions: 340,
@@ -80,7 +81,7 @@ const experiences = [
     dateRange: "2023 - Present",
     title: "Systems & Automation Developer",
     company: "Independent",
-    description: "Designed and prototyped software tools addressing real operational challenges, including scheduling automation, job synchronization, and workflow management systems. Built API bridges, data pipelines, and internal dashboards using modern web technologies.",
+    description: "Built API bridges, data pipelines, and internal dashboards to solve real operational challenges. Prototyped scheduling automation, job synchronization, and workflow management systems using modern web technologies.",
     tech: ["TypeScript", "Express", "Drizzle ORM", "OpenAI", "Firebase", "Webhooks"],
     filesChanged: 32,
     insertions: 480,
@@ -355,34 +356,41 @@ function Hero() {
               style={{ fontSize: "48px" }}
               data-testid="text-headline"
             >
-              Meg — Systems Builder
+              Meg — Systems Engineer
             </h1>
             <p className="text-primary font-mono text-sm mb-2" data-testid="text-role-tag">
-              &lt;AutomationEngineer /&gt;
+              &lt;AutomationBuilder /&gt;
             </p>
             <p
-              className="text-muted-foreground mb-4 max-w-md"
+              className="text-muted-foreground mb-5 max-w-md"
               style={{ fontSize: "17px", lineHeight: "1.7" }}
               data-testid="text-subheading"
             >
-              I design and build software systems that automate operations, organize data, and turn real-world processes into scalable digital tools.
+              I build software systems that automate real-world operations — dispatch & scheduling workflows, CRM/data integrations, and internal dashboards.
             </p>
-            <p
-              className="text-muted-foreground/70 mb-8 max-w-md font-mono italic"
-              style={{ fontSize: "13px", lineHeight: "1.6" }}
-              data-testid="text-tagline"
-            >
-              Translating operational complexity into practical software systems.
-            </p>
+            <div className="space-y-2 mb-8 max-w-md" data-testid="hero-proof-bullets">
+              <div className="flex items-start gap-2.5">
+                <ChevronRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <p className="text-muted-foreground text-[14px]">Founder → engineer transition — built systems from live operational constraints</p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <ChevronRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <p className="text-muted-foreground text-[14px]">Production-minded automation + integrations (webhooks, pipelines, sync)</p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <ChevronRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <p className="text-muted-foreground text-[14px]">Cloud-backed tooling (Replit + Firestore + Postgres patterns)</p>
+              </div>
+            </div>
             <div className="flex items-center gap-3 flex-wrap mb-10">
               <Button
                 size="lg"
-                onClick={() => scrollToSection("projects")}
+                onClick={() => scrollToSection("featured")}
                 className="rounded-md"
                 data-testid="button-view-projects"
               >
                 <Terminal className="w-4 h-4 mr-2" />
-                View Projects
+                Featured Systems
               </Button>
               <Button
                 size="lg"
@@ -444,11 +452,11 @@ function Hero() {
                 </div>
                 <div className="flex">
                   <span className="text-muted-foreground w-8 text-right mr-4 select-none">8</span>
-                  <span>{"      "}<span className="text-blue-300">role</span>=<span className="text-green-400">"Automation Engineer"</span></span>
+                  <span>{"      "}<span className="text-blue-300">role</span>=<span className="text-green-400">"Systems Engineer"</span></span>
                 </div>
                 <div className="flex">
                   <span className="text-muted-foreground w-8 text-right mr-4 select-none">9</span>
-                  <span>{"      "}<span className="text-blue-300">focus</span>=<span className="text-green-400">"Systems & Operations"</span></span>
+                  <span>{"      "}<span className="text-blue-300">focus</span>=<span className="text-green-400">"Automation & Operations"</span></span>
                 </div>
                 <div className="flex">
                   <span className="text-muted-foreground w-8 text-right mr-4 select-none">10</span>
@@ -465,6 +473,273 @@ function Hero() {
               </div>
             </Card>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const featuredSystems = [
+  {
+    title: "JobberBridge",
+    icon: Link2,
+    gradient: "linear-gradient(135deg, rgba(34,197,94,0.2), rgba(16,185,129,0.2))",
+    problem: "Jobber events (new clients, job updates, invoice changes) weren't reaching internal tools in real time.",
+    solution: "Built a webhook-driven API bridge that listens for Jobber events and syncs data to internal systems automatically.",
+    highlights: [
+      "Real-time webhook ingestion with event validation",
+      "Auto-sync of client, job, and invoice records",
+      "Error handling and retry logic for failed dispatches",
+    ],
+    tech: ["TypeScript", "Express", "Jobber API", "Webhooks"],
+    demoUrl: "https://replit.com/@office277/JobberBridge?s=app",
+    codeUrl: "https://replit.com/@office277/JobberBridge",
+    status: "Live" as const,
+  },
+  {
+    title: "JobberToFirestore",
+    icon: Database,
+    gradient: "linear-gradient(135deg, rgba(249,115,22,0.2), rgba(245,158,11,0.2))",
+    problem: "Operational data locked inside Jobber with no way to build custom dashboards or cross-platform reports.",
+    solution: "Automated pipeline that pulls job, client, and scheduling data from Jobber into Google Firestore for real-time access.",
+    highlights: [
+      "Structured data pipeline: Jobber → Firestore",
+      "Real-time dashboard and reporting layer",
+      "Eliminates manual CSV exports and data re-entry",
+    ],
+    tech: ["TypeScript", "Firestore", "Jobber API", "Express"],
+    demoUrl: "https://replit.com/@office277/JobberToFirestore?s=app",
+    codeUrl: "https://replit.com/@office277/JobberToFirestore",
+    status: "Live" as const,
+  },
+  {
+    title: "Maine Clean Team Hub",
+    icon: Users,
+    gradient: "linear-gradient(135deg, rgba(168,85,247,0.2), rgba(139,92,246,0.2))",
+    problem: "Crew had no single place to check daily assignments, update job statuses, or coordinate schedule changes.",
+    solution: "Internal operations dashboard where crew members manage assignments, track job progress, and coordinate schedules.",
+    highlights: [
+      "Role-based views for crew and operators",
+      "Daily assignment board with status tracking",
+      "Schedule coordination and team visibility",
+    ],
+    tech: ["React", "TypeScript", "Express", "Tailwind CSS"],
+    demoUrl: "https://replit.com/@office277/Maine-Clean-team-hub?s=app",
+    codeUrl: "https://replit.com/@office277/Maine-Clean-team-hub",
+    status: "Live" as const,
+  },
+  {
+    title: "CleanSync",
+    icon: Zap,
+    gradient: "linear-gradient(135deg, rgba(236,72,153,0.2), rgba(244,63,94,0.2))",
+    problem: "Data across scheduling, invoicing, and communication platforms kept falling out of sync, causing rework and errors.",
+    solution: "Cron-based sync layer that polls platforms on schedule, reconciles records, and keeps data consistent automatically.",
+    highlights: [
+      "Cron-based polling with configurable intervals",
+      "Cross-platform data reconciliation logic",
+      "Eliminated manual re-entry across tools",
+    ],
+    tech: ["TypeScript", "Express", "Cron Jobs", "REST APIs"],
+    demoUrl: "https://replit.com/@office277/CleanSync-1?s=app",
+    codeUrl: "https://replit.com/@office277/CleanSync-1",
+    status: "Live" as const,
+  },
+  {
+    title: "Align",
+    icon: Layers,
+    gradient: "linear-gradient(135deg, rgba(59,130,246,0.2), rgba(6,182,212,0.2))",
+    problem: "No system to match cleaners to properties based on behavioral fit, or handle complex authorize-then-capture payment flows.",
+    solution: "Multi-tenant operations platform with behavioral profiling (Cleaner DNA), stream-based work assignment, and Stripe payment integration.",
+    highlights: [
+      "Behavioral profiling engine for cleaner-property matching",
+      "AI-powered property analysis via OpenAI Vision",
+      "Stripe authorize-then-capture payment flow",
+      "Role-based access for operators, cleaners, and clients",
+    ],
+    tech: ["TypeScript", "PostgreSQL", "Drizzle ORM", "Stripe", "OpenAI Vision"],
+    demoUrl: "https://replit.com/@info10885/Align?s=app",
+    codeUrl: "https://replit.com/@info10885/Align",
+    status: "In Development" as const,
+  },
+];
+
+const platformGroups = [
+  {
+    title: "Cloud & Backend",
+    icon: Database,
+    items: [
+      { name: "Firestore / Firebase", label: "Real-time data + reporting" },
+      { name: "PostgreSQL + Drizzle", label: "Relational modeling" },
+      { name: "Express APIs", label: "Backend routes + middleware" },
+      { name: "Webhooks", label: "Event-driven updates" },
+    ],
+  },
+  {
+    title: "App Development",
+    icon: Monitor,
+    items: [
+      { name: "React + TypeScript", label: "UI + component systems" },
+      { name: "Vite", label: "Dev/build tooling" },
+      { name: "Replit", label: "Deployment workflow" },
+      { name: "Wouter", label: "Client-side routing" },
+    ],
+  },
+  {
+    title: "Data & Ops Systems",
+    icon: BarChart3,
+    items: [
+      { name: "Jobber", label: "Ops CRM + scheduling data source" },
+      { name: "Internal Dashboards", label: "Workflow modeling + visibility" },
+      { name: "GoHighLevel", label: "Marketing + pipeline automation" },
+      { name: "Connecteam", label: "Team coordination + scheduling" },
+    ],
+  },
+  {
+    title: "Automation & Integration",
+    icon: Workflow,
+    items: [
+      { name: "Jobber Webhooks", label: "Real-time event ingestion" },
+      { name: "Cron Sync Processes", label: "Scheduled data reconciliation" },
+      { name: "API Bridge Patterns", label: "Platform-to-platform routing" },
+      { name: "Data Pipelines", label: "Jobber → Firestore transforms" },
+    ],
+  },
+];
+
+function FeaturedSystems() {
+  return (
+    <section
+      id="featured"
+      className="py-24"
+      style={{ scrollMarginTop: "64px" }}
+      data-testid="section-featured"
+    >
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeader tag="$ cat featured_systems.md" title="Featured Systems" />
+
+        <div className="space-y-6">
+          {featuredSystems.map((system, index) => (
+            <Card
+              key={index}
+              className="border border-border bg-card rounded-md overflow-hidden"
+              data-testid={`card-featured-${index}`}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-0">
+                <div
+                  className="flex flex-col items-center justify-center p-8 relative"
+                  style={{ background: system.gradient }}
+                >
+                  <system.icon className="w-10 h-10 text-foreground/70 mb-3" />
+                  <h3 className="text-foreground font-semibold text-[17px] font-mono text-center" data-testid={`text-featured-title-${index}`}>
+                    {system.title}
+                  </h3>
+                  <Badge
+                    variant="outline"
+                    className={`font-mono text-[10px] mt-2 no-default-hover-elevate no-default-active-elevate ${
+                      system.status === "Live"
+                        ? "text-green-400 border-green-400/30 bg-green-400/10"
+                        : "text-yellow-400 border-yellow-400/30 bg-yellow-400/10"
+                    }`}
+                    data-testid={`badge-featured-status-${index}`}
+                  >
+                    <CircleDot className="w-2.5 h-2.5 mr-1" />
+                    {system.status}
+                  </Badge>
+                </div>
+
+                <div className="p-6">
+                  <div className="mb-4">
+                    <p className="text-muted-foreground text-[12px] font-mono uppercase tracking-wider mb-1">Problem</p>
+                    <p className="text-foreground text-[14px]" style={{ lineHeight: "1.6" }}>{system.problem}</p>
+                  </div>
+                  <div className="mb-4">
+                    <p className="text-muted-foreground text-[12px] font-mono uppercase tracking-wider mb-1">Solution</p>
+                    <p className="text-foreground text-[14px]" style={{ lineHeight: "1.6" }}>{system.solution}</p>
+                  </div>
+                  <div className="space-y-1.5 mb-4">
+                    {system.highlights.map((h, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-green-400 mt-0.5 flex-shrink-0" />
+                        <span className="text-muted-foreground text-[13px]">{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {system.tech.map((t) => (
+                      <Badge key={t} variant="secondary" className="font-mono text-[10px]">{t}</Badge>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {system.demoUrl && (
+                      <Button asChild variant="outline" size="sm" className="rounded-md text-[12px] font-mono" data-testid={`button-featured-demo-${index}`}>
+                        <a href={system.demoUrl} target="_blank" rel="noopener noreferrer">
+                          <ArrowUpRight className="w-3 h-3 mr-1" />
+                          Demo
+                        </a>
+                      </Button>
+                    )}
+                    {system.codeUrl && (
+                      <Button asChild variant="outline" size="sm" className="rounded-md text-[12px] font-mono" data-testid={`button-featured-code-${index}`}>
+                        <a href={system.codeUrl} target="_blank" rel="noopener noreferrer">
+                          <Code2 className="w-3 h-3 mr-1" />
+                          Code
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PlatformsExperience() {
+  return (
+    <section
+      id="platforms"
+      className="py-24"
+      style={{ scrollMarginTop: "64px" }}
+      data-testid="section-platforms"
+    >
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeader tag="$ cat platforms.yml" title="Systems & Platforms Experience" />
+
+        <p
+          className="text-muted-foreground mb-10 max-w-2xl"
+          style={{ fontSize: "15px", lineHeight: "1.7" }}
+          data-testid="text-platforms-intro"
+        >
+          Over several years I've built operational software across cloud, low-code, and full-stack environments — selecting tools based on constraints like speed, scalability, and integration surface area.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {platformGroups.map((group, index) => (
+            <Card
+              key={index}
+              className="border border-border bg-card rounded-md p-0"
+              data-testid={`card-platform-${index}`}
+            >
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+                <group.icon className="w-3.5 h-3.5 text-primary" />
+                <span className="text-foreground text-[13px] font-mono font-semibold">{group.title}</span>
+              </div>
+              <div className="p-5 space-y-3">
+                {group.items.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <ChevronRight className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
+                    <div>
+                      <span className="text-foreground text-[13px] font-semibold">{item.name}</span>
+                      <span className="text-muted-foreground text-[12px] ml-2">— {item.label}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
@@ -505,7 +780,7 @@ function About() {
                   </div>
                   <div className="flex items-center justify-between gap-2 text-[13px]">
                     <span className="text-muted-foreground font-mono">ROLE</span>
-                    <span className="text-foreground font-medium text-right">AUTOMATION_ENGINEER</span>
+                    <span className="text-foreground font-medium text-right">SYSTEMS_ENGINEER</span>
                   </div>
                   <div className="flex items-center justify-between gap-2 text-[13px]">
                     <span className="text-muted-foreground font-mono">LOCATION</span>
@@ -1515,7 +1790,7 @@ function Footer() {
     <footer className="border-t border-border" data-testid="footer">
       <div className="max-w-5xl mx-auto px-6 py-8 flex items-center justify-between gap-4 flex-wrap">
         <p className="text-[13px] text-muted-foreground font-mono" data-testid="text-copyright">
-          &lt;Meg /&gt; &mdash; Automation Engineer
+          &lt;Meg /&gt; &mdash; Systems Engineer
         </p>
         <div className="flex items-center gap-5">
           <a href="mailto:megan.small@maine.edu" className="text-muted-foreground hover:text-foreground transition-colors duration-200" aria-label="Email" data-testid="footer-link-email">
@@ -1535,8 +1810,10 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground" data-testid="page-home">
       <Navbar />
       <Hero />
+      <FeaturedSystems />
       <About />
       <SystemsAndTechnical />
+      <PlatformsExperience />
       <Skills />
       <Experience />
       <Projects />
