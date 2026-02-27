@@ -38,6 +38,10 @@ import {
   Brain,
   Link2,
   Monitor,
+  Globe,
+  Flame,
+  RefreshCw,
+  Layout,
 } from "lucide-react";
 
 const navLinks = [
@@ -55,6 +59,8 @@ const skills = [
   "REST APIs", "Git", "Linux", "Figma", "SQL",
   "Webhooks", "Cron Jobs", "Zod", "Vite", "Postman",
   "Data Modeling", "Responsive Design", "VS Code",
+  "Drizzle ORM", "Stripe", "OpenAI", "Firebase",
+  "Replit", "Shadcn UI", "TanStack Query",
 ];
 
 const experiences = [
@@ -150,6 +156,72 @@ const projects = [
     codeUrl: "",
     embedUrl: "",
     gradient: "linear-gradient(135deg, rgba(234,179,8,0.2), rgba(249,115,22,0.2))",
+  },
+];
+
+const replitApps = [
+  {
+    name: "Align",
+    description: "Multi-tenant operations platform with AI-powered property analysis",
+    icon: Layers,
+    color: "#3B82F6",
+    url: "https://replit.com/@info10885/Align",
+    account: "@info10885",
+    pinned: true,
+  },
+  {
+    name: "Knowledge Extractor",
+    description: "AI-powered document processing and knowledge base builder",
+    icon: Brain,
+    color: "#EAB308",
+    url: "https://replit.com/@info10885/Knowledge-Extractor",
+    account: "@info10885",
+    pinned: true,
+  },
+  {
+    name: "Developer Portfolio",
+    description: "This portfolio site — built with React, TypeScript & Tailwind",
+    icon: Layout,
+    color: "#8B5CF6",
+    url: "https://replit.com/@info10885/Developer-Portfolio",
+    account: "@info10885",
+    pinned: false,
+  },
+  {
+    name: "JobberBridge",
+    description: "Real-time API bridge between Jobber and internal tools",
+    icon: Link2,
+    color: "#22C55E",
+    url: "https://replit.com/@office277/JobberBridge",
+    account: "@office277",
+    pinned: true,
+  },
+  {
+    name: "JobberToFirestore",
+    description: "Automated data pipeline from Jobber into Google Firestore",
+    icon: Database,
+    color: "#F97316",
+    url: "https://replit.com/@office277/JobberToFirestore",
+    account: "@office277",
+    pinned: true,
+  },
+  {
+    name: "Maine Clean Team Hub",
+    description: "Internal operations dashboard for crew scheduling and coordination",
+    icon: Users,
+    color: "#A855F7",
+    url: "https://replit.com/@office277/Maine-Clean-team-hub",
+    account: "@office277",
+    pinned: true,
+  },
+  {
+    name: "CleanSync",
+    description: "Automated sync layer connecting scheduling and invoicing tools",
+    icon: RefreshCw,
+    color: "#EC4899",
+    url: "https://replit.com/@office277/CleanSync-1",
+    account: "@office277",
+    pinned: true,
   },
 ];
 
@@ -950,15 +1022,56 @@ function Projects() {
               ))}
             </div>
 
-            <Card className="border border-border bg-card rounded-md p-5 mt-4" data-testid="card-replit-profiles">
-              <div className="flex items-center gap-2 mb-3">
-                <Code2 className="w-4 h-4 text-primary" />
-                <span className="font-mono text-[13px] text-foreground font-semibold">More on Replit</span>
+            <div className="mt-6" data-testid="replit-apps-section">
+              <div className="flex items-center gap-2 mb-4">
+                <Globe className="w-3.5 h-3.5 text-primary" />
+                <span className="text-muted-foreground text-[12px] font-mono tracking-wider uppercase">
+                  Replit Apps
+                </span>
               </div>
-              <p className="text-muted-foreground text-[13px] mb-4" style={{ lineHeight: "1.6" }}>
-                Browse all my live apps, prototypes, and experiments across Replit workspaces.
-              </p>
-              <div className="flex items-center gap-3 flex-wrap">
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {replitApps.map((app, index) => (
+                  <a
+                    key={index}
+                    href={app.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid={`card-replit-app-${index}`}
+                  >
+                    <Card className="border border-border bg-card rounded-md p-3.5 hover-elevate transition-all duration-200 h-full">
+                      <div className="flex items-start gap-3">
+                        <div
+                          className="w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0"
+                          style={{ backgroundColor: `${app.color}20` }}
+                        >
+                          <app.icon className="w-4 h-4" style={{ color: app.color }} />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                            <span className="text-foreground text-[13px] font-mono font-semibold truncate" data-testid={`text-replit-app-name-${index}`}>
+                              {app.name}
+                            </span>
+                            {app.pinned && (
+                              <Badge variant="secondary" className="font-mono text-[10px] flex-shrink-0 no-default-hover-elevate no-default-active-elevate" data-testid={`badge-featured-${index}`}>
+                                Featured
+                              </Badge>
+                            )}
+                          </div>
+                          <p className="text-muted-foreground text-[11px] line-clamp-2" style={{ lineHeight: "1.5" }} data-testid={`text-replit-app-desc-${index}`}>
+                            {app.description}
+                          </p>
+                          <span className="text-muted-foreground/50 text-[10px] font-mono mt-1 inline-block">
+                            {app.account}
+                          </span>
+                        </div>
+                      </div>
+                    </Card>
+                  </a>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3 mt-4 flex-wrap">
                 <a
                   href="https://replit.com/@office277"
                   target="_blank"
@@ -967,7 +1080,7 @@ function Projects() {
                 >
                   <Button variant="outline" size="sm" className="rounded-md text-[12px] font-mono">
                     <ExternalLink className="w-3 h-3 mr-1.5" />
-                    @office277
+                    View all @office277
                   </Button>
                 </a>
                 <a
@@ -978,11 +1091,11 @@ function Projects() {
                 >
                   <Button variant="outline" size="sm" className="rounded-md text-[12px] font-mono">
                     <ExternalLink className="w-3 h-3 mr-1.5" />
-                    @info10885
+                    View all @info10885
                   </Button>
                 </a>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>

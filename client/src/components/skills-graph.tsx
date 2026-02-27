@@ -3,7 +3,8 @@ import {
   SiReact, SiTypescript, SiJavascript, SiNodedotjs, SiExpress,
   SiPostgresql, SiHtml5, SiCss3, SiTailwindcss, SiPython,
   SiGit, SiLinux, SiFigma, SiVite, SiPostman,
-  SiZod,
+  SiZod, SiStripe, SiFirebase, SiOpenai, SiDrizzle,
+  SiReplit, SiShadcnui, SiReactquery,
 } from "react-icons/si";
 import { IconType } from "react-icons";
 import { Move, Database, Globe, Webhook, Clock, LayoutGrid, Monitor, Code2 } from "lucide-react";
@@ -45,6 +46,14 @@ const skillNodes: SkillNode[] = [
   { label: "Data Modeling", icon: null, lucideIcon: LayoutGrid, color: "#26A69A", orbit: 3, angle: 255, floatOffset: 3.1, floatSpeed: 0.75 },
   { label: "Responsive", icon: null, lucideIcon: Monitor, color: "#EF5350", orbit: 3, angle: 295, floatOffset: 0.8, floatSpeed: 0.6 },
   { label: "VS Code", icon: null, lucideIcon: Code2, color: "#007ACC", orbit: 3, angle: 335, floatOffset: 1.9, floatSpeed: 0.55 },
+
+  { label: "Drizzle ORM", icon: SiDrizzle, color: "#C5F74F", orbit: 4, angle: 0, floatOffset: 0.4, floatSpeed: 0.5 },
+  { label: "Stripe", icon: SiStripe, color: "#635BFF", orbit: 4, angle: 51, floatOffset: 1.6, floatSpeed: 0.6 },
+  { label: "OpenAI", icon: SiOpenai, color: "#412991", orbit: 4, angle: 103, floatOffset: 2.8, floatSpeed: 0.55 },
+  { label: "Firebase", icon: SiFirebase, color: "#FFCA28", orbit: 4, angle: 154, floatOffset: 0.7, floatSpeed: 0.65 },
+  { label: "Replit", icon: SiReplit, color: "#F26207", orbit: 4, angle: 206, floatOffset: 1.9, floatSpeed: 0.5 },
+  { label: "Shadcn UI", icon: SiShadcnui, color: "#FFFFFF", orbit: 4, angle: 257, floatOffset: 3.1, floatSpeed: 0.7 },
+  { label: "TanStack Query", icon: SiReactquery, color: "#FF4154", orbit: 4, angle: 309, floatOffset: 0.2, floatSpeed: 0.6 },
 ];
 
 const CONNECTION_DISTANCE = 160;
@@ -86,7 +95,7 @@ export default function SkillsGraph() {
         const w = containerRef.current.clientWidth;
         const mobile = w < 640;
         setIsMobile(mobile);
-        const h = mobile ? Math.min(w * 0.9, 420) : Math.min(520, w * 0.72);
+        const h = mobile ? Math.min(w * 1.0, 480) : Math.min(580, w * 0.78);
         setCanvasSize({ width: w, height: h });
       }
     }
@@ -98,9 +107,9 @@ export default function SkillsGraph() {
   const getOrbitRadii = useCallback(() => {
     const minDim = Math.min(canvasSize.width, canvasSize.height);
     if (isMobile) {
-      return [minDim * 0.15, minDim * 0.28, minDim * 0.40];
+      return [minDim * 0.12, minDim * 0.22, minDim * 0.32, minDim * 0.42];
     }
-    return [minDim * 0.16, minDim * 0.30, minDim * 0.43];
+    return [minDim * 0.13, minDim * 0.24, minDim * 0.35, minDim * 0.46];
   }, [canvasSize, isMobile]);
 
   useEffect(() => {

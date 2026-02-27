@@ -46,20 +46,24 @@ A dark, terminal/developer-themed portfolio website for Meg — a Computer Scien
 - `server/routes.ts` — API routes (minimal)
 - `client/public/favicon.png` — Circular favicon (64x64) from Meg's logo
 - `client/public/favicon-32.png` — Circular favicon (32x32)
-- `attached_assets/IMG_2049_1772134195061.png` — Meg's photo (used in hero, about, navbar)
+- `attached_assets/IMG_2049_1772134195061.png` — Meg's photo (used in hero and about sections)
 
 ## Sections (in order)
 1. **Hero** — Avatar + terminal greeting, code snippet block, loaded modules badges
 2. **About** — Profile card with avatar/location/school, terminal bio (whoami/cat), stats cards
-3. **Skills** — Interactive orbital constellation graph with 23 tech skill nodes, drag-to-explore, connecting lines, brand icons (react-icons/si)
+3. **Skills** — Interactive orbital constellation graph with 30 tech skill nodes in 4 orbits, drag-to-explore, connecting lines, brand icons (react-icons/si)
 4. **Experience** — Alternating zigzag git log timeline with colored gradient markers, floating date badges, commit metadata
-5. **Projects** — Split layout: GitHub repo list sidebar (live data) + 6 real pinned project cards with gradient headers, status badges (Live/In Development), Demo/Preview/Code buttons, and embedded Replit app preview modal
+5. **Projects** — Split layout: GitHub repo list sidebar (live data) + 6 pinned project cards with gradient headers + Replit Apps mini-cards section with all projects from both accounts + embedded Replit app preview modal
 6. **Contact** — JSON contact info block (email, location, github) + code editor-styled form
 7. **Footer** — Monospace branding + email/github links
 
 ## Skills Graph (skills-graph.tsx)
 - Canvas-based orbital visualization with React DOM icon overlays
-- 23 skill nodes in 3 concentric orbits with brand icons from react-icons/si
+- 30 skill nodes in 4 concentric orbits with brand icons from react-icons/si
+- Orbit 1 (core): React, TypeScript, JavaScript, Node.js, Express, PostgreSQL
+- Orbit 2 (fundamentals): HTML5, CSS3, Tailwind, Python, Git, Linux, Figma, SQL
+- Orbit 3 (tools/patterns): REST APIs, Vite, Zod, Postman, Webhooks, Cron Jobs, Data Modeling, Responsive, VS Code
+- Orbit 4 (platforms/services): Drizzle ORM, Stripe, OpenAI, Firebase, Replit, Shadcn UI, TanStack Query
 - Mouse drag to rotate (pointer capture for smooth dragging)
 - Gentle floating animation using requestAnimationFrame (positions stored in refs, not state)
 - Connecting lines between nearby nodes (Obsidian graph style)
@@ -85,6 +89,6 @@ Each card has: gradient header with icon, status badge (green=Live, yellow=In De
 - Loading skeletons and error state handling
 
 ## Navigation
-- Fixed dark navbar with avatar + 6 section links (Home, About, Skills, Experience, Projects, Contact)
+- Fixed dark navbar with terminal icon + `<Meg />` branding + 6 section links (Home, About, Skills, Experience, Projects, Contact)
 - Mobile hamburger menu
 - Smooth scroll with 64px offset for fixed nav
