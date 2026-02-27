@@ -68,12 +68,12 @@ A dark, terminal/developer-themed portfolio website for Meg — a Computer Scien
 - "Drag to explore skills universe" hint bar
 
 ## Pinned Projects (6 real apps)
-1. **Align** — Intelligent operations platform for cleaning services (multi-tenant, cleaner DNA matching, Stripe). Status: In Development.
-2. **JobberBridge** — Integration bridge: Jobber ↔ external systems. Source: @office277. Status: Live.
-3. **JobberToFirestore** — Data pipeline: Jobber → Google Firestore. Source: @office277. Status: Live.
-4. **Maine Clean Team Hub** — Team management for Maine Cleaning Company. Source: @office277. Status: Live.
-5. **CleanSync** — Ops sync across scheduling/invoicing/comms. Source: @office277. Status: Live.
-6. **Knowledge Extractor** — AI-powered knowledge extraction tool. Status: In Development.
+1. **Align** — Multi-tenant operations platform: Cleaner DNA behavioral matching, stream-based work assignment, OpenAI Vision property analysis, Stripe authorize-then-capture payments, 4 user roles. Tech: TypeScript, PostgreSQL, Drizzle ORM, Stripe, OpenAI Vision, Google Calendar API. Status: In Development.
+2. **JobberBridge** — Real-time API bridge: Jobber webhook events → internal tools, auto-syncing clients/jobs/invoices. Tech: TypeScript, Express, Jobber API, Webhooks. Source: @office277. Status: Live.
+3. **JobberToFirestore** — Automated data pipeline: Jobber → Firestore for real-time dashboards and reporting. Tech: TypeScript, Firestore, Jobber API, Express. Source: @office277. Status: Live.
+4. **Maine Clean Team Hub** — Internal ops dashboard: daily assignments, job status tracking, team schedule coordination. Tech: React, TypeScript, Express, Tailwind CSS. Source: @office277. Status: Live.
+5. **CleanSync** — Cron-based sync layer connecting scheduling, invoicing, and communication tools. Tech: TypeScript, Express, Cron Jobs, REST APIs. Source: @office277. Status: Live.
+6. **Knowledge Extractor** — AI document processor: extracts concepts, relationships, and summaries into structured knowledge bases. Tech: TypeScript, React, OpenAI API, Express. Status: In Development.
 
 Each card has: gradient header with icon, status badge (green=Live, yellow=In Dev), tech badges (max 4 shown + overflow count), and Demo/Preview/Code buttons. Preview opens an embedded Replit iframe modal with macOS-style title bar.
 

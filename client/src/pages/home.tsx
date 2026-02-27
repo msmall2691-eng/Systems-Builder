@@ -87,8 +87,8 @@ const experiences = [
 const projects = [
   {
     title: "Align",
-    description: "Intelligent operations platform for cleaning services. Multi-tenant system with cleaner DNA matching, stream-based work assignment, Stripe payments, and role-based access. Assigns cleaners to ongoing care streams based on compatibility, history, and capacity.",
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe", "Tailwind CSS"],
+    description: "Multi-tenant operations platform that matches cleaners to properties using behavioral profiling (Cleaner DNA). Handles stream-based work assignment, AI-powered property analysis via OpenAI Vision, Stripe authorize-then-capture payments, and role-based access for operators, cleaners, and clients.",
+    tech: ["TypeScript", "PostgreSQL", "Drizzle ORM", "Stripe", "OpenAI Vision", "Google Calendar API"],
     icon: Layers,
     status: "In Development" as const,
     demoUrl: "",
@@ -98,8 +98,8 @@ const projects = [
   },
   {
     title: "JobberBridge",
-    description: "Integration bridge connecting Jobber field service software to external systems. Automates data sync between Jobber and third-party tools for seamless operations management.",
-    tech: ["Node.js", "TypeScript", "REST APIs", "Webhooks"],
+    description: "Real-time API bridge between Jobber field service management and internal business tools. Listens for webhook events and syncs client, job, and invoice data automatically so nothing falls through the cracks.",
+    tech: ["TypeScript", "Express", "Jobber API", "Webhooks"],
     icon: Link2,
     status: "Live" as const,
     demoUrl: "https://replit.com/@office277/JobberBridge?s=app",
@@ -109,8 +109,8 @@ const projects = [
   },
   {
     title: "JobberToFirestore",
-    description: "Data pipeline that syncs Jobber service data to Google Firestore for real-time analytics, reporting, and cross-platform data access.",
-    tech: ["Node.js", "TypeScript", "Firebase", "Firestore", "REST APIs"],
+    description: "Automated data pipeline that pulls job, client, and scheduling data from Jobber into Google Firestore. Powers real-time dashboards and cross-platform reporting without manual exports.",
+    tech: ["TypeScript", "Firestore", "Jobber API", "Express"],
     icon: Database,
     status: "Live" as const,
     demoUrl: "https://replit.com/@office277/JobberToFirestore?s=app",
@@ -120,8 +120,8 @@ const projects = [
   },
   {
     title: "Maine Clean Team Hub",
-    description: "Team management hub for The Maine Cleaning Company. Centralizes scheduling, team coordination, and daily operations into a single dashboard for the whole crew.",
-    tech: ["React", "TypeScript", "Node.js", "Tailwind CSS"],
+    description: "Internal operations dashboard for The Maine Cleaning Company. Crew members check daily assignments, update job statuses, and coordinate schedules from a single shared interface.",
+    tech: ["React", "TypeScript", "Express", "Tailwind CSS"],
     icon: Users,
     status: "Live" as const,
     demoUrl: "https://replit.com/@office277/Maine-Clean-team-hub?s=app",
@@ -131,8 +131,8 @@ const projects = [
   },
   {
     title: "CleanSync",
-    description: "Operations synchronization tool that keeps scheduling, invoicing, and communication platforms in sync. Eliminates manual data entry across multiple business tools.",
-    tech: ["Node.js", "TypeScript", "REST APIs", "Webhooks", "Cron Jobs"],
+    description: "Automated sync layer that connects scheduling, invoicing, and client communication tools. Runs on cron-based polling to keep data consistent across platforms and eliminate manual re-entry.",
+    tech: ["TypeScript", "Express", "Cron Jobs", "REST APIs"],
     icon: Zap,
     status: "Live" as const,
     demoUrl: "https://replit.com/@office277/CleanSync-1?s=app",
@@ -142,8 +142,8 @@ const projects = [
   },
   {
     title: "Knowledge Extractor",
-    description: "AI-powered tool for extracting, organizing, and structuring knowledge from various sources into actionable, searchable formats.",
-    tech: ["TypeScript", "Node.js", "AI/LLM", "React"],
+    description: "AI-powered tool that processes documents and unstructured text to build structured, searchable knowledge bases. Extracts key concepts, relationships, and summaries automatically.",
+    tech: ["TypeScript", "React", "OpenAI API", "Express"],
     icon: Brain,
     status: "In Development" as const,
     demoUrl: "",
@@ -865,7 +865,7 @@ function Projects() {
                     </div>
 
                     <p
-                      className="text-muted-foreground mb-4 line-clamp-3 flex-1"
+                      className="text-muted-foreground mb-4 line-clamp-4 flex-1"
                       style={{ fontSize: "13px", lineHeight: "1.6" }}
                       data-testid={`text-project-desc-${index}`}
                     >

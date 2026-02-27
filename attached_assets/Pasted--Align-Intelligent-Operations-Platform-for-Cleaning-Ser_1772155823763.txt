@@ -1,0 +1,161 @@
+# Align - Intelligent Operations Platform for Cleaning Services
+
+## Overview
+Align is a multi-tenant, backend-only platform designed to optimize cleaning service operations. It routes cleaning work through contextual matching using behavioral profiles ("Cleaner DNA"). Each cleaning company ("Operator") receives an isolated workspace to manage their cleaners, clients, and Care Streams. The platform assigns cleaners to ongoing Care Streams based on compatibility, history, and capacity, aiming for calm, invisible coordination without job bidding or micromanagement. The project's vision is to be the leading intelligent operations platform for the cleaning industry, enabling businesses to scale efficiently and cleaners to thrive in well-matched roles.
+
+## User Preferences
+I prefer simple language and detailed explanations. I want iterative development with clear communication at each step. Ask before making major architectural changes or introducing new dependencies. Ensure that all changes maintain the multi-tenant data isolation principle.
+
+## System Architecture
+
+### Multi-Tenant Architecture
+The platform is built on a multi-tenant architecture where each "Operator" (cleaning company) has isolated data. Data isolation is enforced at the storage layer using `operatorId` for all entities (Cleaners, Clients, CareStreams, JobInstances, etc.). Operators can subscribe to different tiers (starter, basic, professional, enterprise) which dictate features like guaranteed backup, peak priority, advanced insights, overflow network, and usage limits (maxStreams, maxCleaners).
+
+### Role-Based Permissions
+The system defines four roles:
+- **platform_owner**: Full system access.
+- **operator**: Full access within their tenant.
+- **cleaner**: Limited access to view assignments and manage offers.
+- **client**: Minimal access to view streams and provide feedback.
+
+### Core Concepts & Terminology
+**Canonical Terms (use consistently everywhere):**
+- **Cleaner DNA**: Structured profile of how a cleaner works (pace, preferences, reliability, experience). Cleaner-facing only.
+- **Stream**: An ongoing or one-time flow of work for a property. Replaces "job/gig/task".
+- **Trial Stream**: First clean to confirm fit before ongoing assignment.
+- **Ongoing Stream**: Repeating, stable work relationship.
+- **Backup Stream**: On-call coverage for a stream.
+- **Alignment**: System decision that Cleaner DNA fits a Stream's difficulty profile.
+- **Stream Mode**: Owner upgrade that enables backup + automation.
+- **Stream Offer**: Invitation sent to cleaner for a stream.
+
+**Forbidden Terms:** jobs, gigs, tasks, marketplace, bids
+
+**Owner-facing copy:** Use "strong alignment" and "matched based on experience" (never say "DNA" to owners).
+**Cleaner-facing copy:** Use "Cleaner DNA" and "streams that fit your DNA".
+
+**Stream Lifecycle:** `Cleaner DNA → Alignment → Stream Offer → Trial Stream → Approval → Ongoing Stream → (Optional) Backup Stream`
+
+### Key Design Decisions
+- **No job bidding**: System assigns work, cleaners accept/decline.
+- **Independent operators**: No penalties for declining offers.
+- **Silent fallback**: Backup assignment is prioritized over client notification.
+- **Override tracking**: All manual decisions are logged with `actingUserId` for training data.
+- **Pair tracking**: Cleaner pairs are first-class entities with compatibility scoring.
+
+### Data Models
+The system uses comprehensive data models for `Operators`, `Cleaners` (with DNA profiles), `Clients` (with communication preferences), `Care Streams` (with difficulty profiles), `Job Instances`, `Stream Offers`, `Cleaner Pairs`, `Operator Overrides`, `Fallback Events`, `Metrics Snapshots`, `Users`, `CleanerPayout`, `StreamMessages`, and `PaymentAuthorizations`. All entities are scoped by `operatorId`.
+
+### Enhanced Cleaner DNA (Professional Matching)
+The Cleaner DNA profile now includes comprehensive professional attributes for industry-accurate matching:
+- **Pet Compatibility**: petComfort ("none", "cats_only", "dogs_only", "all_pets")
+- **Eco-Friendly**: ecoFriendlyPreference boolean for green cleaning product preferences
+- **Specialty Skills**: specialties array (deep_clean, move_in_out, post_construction, hoarding, allergen_free, luxury_home, vacation_rental, commercial_light)
+- **Equipment Proficiency**: equipmentProficiency array (standard, steam_cleaner, carpet_extractor, floor_buffer, pressure_washer, window_pro)
+- **Geographic**: travelRadiusMiles, hasReliableTransport, homeBaseZip
+- **Languages**: languages array for multilingual support
+- **Quality Metrics** (historical learning):
+  - reRequestRate, clientSatisfactionScore, firstCleanSuccessRate
+  - avgJobDurationAccuracy, consistencyScore, adaptabilityScore
+
+### Industry Standards Service
+Located at `server/services/industry-standards.ts`, provides:
+- **Time Estimation**: Based on ISSA/ARCSI standards (sq ft, room counts, property type, difficulty)
+- **Pricing Benchmarks**: By market tier (budget/mid/premium) and property characteristics
+- **Auto-Difficulty Calculation**: From property photos AI metadata (features, surfaces, room types)
+- **Quality Grading**: A-F grades with recommendations based on metrics
+
+### Storage
+PostgreSQL storage via Drizzle ORM provides persistent CRUD operations for all entities, alongside operator-scoped queries (e.g., `getCleanersByOperator`) and specialized operations like `acceptOffer` and `resolveFallback`. Data persists across restarts - no more mock data confusion.
+
+### Property Photos with AI Metadata
+Property owners can upload photos of their properties. The system uses OpenAI Vision (gpt-5) to automatically extract:
+- Room type (bedroom, bathroom, kitchen, etc.)
+- Features detected (hardwood_floors, large_windows, etc.)
+- Surface types (tile, carpet, wood, glass)
+- AI-suggested cleaning notes
+- Estimated difficulty (1-5)
+- Brief description
+
+### Stream Approval & DM
+Ongoing streams require owner approval before:
+- Cleaner gets access to full property details (address, access codes)
+- DM messaging between owner and cleaner is enabled
+- Access to property photos
+
+Approval is tracked via `approved`, `approvedAt`, `approvedBy` fields on CareStream.
+
+### API Routes
+A RESTful API manages various aspects of the platform, including:
+- **Operator Management**: CRUD for operators and their associated entities.
+- **Cleaner Management**: CRUD for cleaners, DNA updates, and burnout risk assessment.
+- **Client Management**: CRUD for clients.
+- **Care Stream Management**: CRUD for streams, matching candidates, offer generation, and difficulty updates.
+- **Offer Management**: CRUD for offers, acceptance, and declination.
+- **Override & Training Data**: Tracking manual overrides and their outcomes.
+- **Job Management**: CRUD for job instances and no-show reporting.
+- **System**: Health checks.
+- **Payment Authorizations**: Lifecycle management for `authorize-then-capture` payment flows.
+- **Stream Messages**: API for in-app messaging within streams.
+
+### Settings & Calendar Sync
+- **Role-Specific Settings**: Customizable settings for Cleaners (`maxJobsPerDay`, `maxHoursPerWeek`, availability, notification preferences), Clients (`notifyOnlyOnProblems`, `sendCompletionConfirmation`), and Operators (default backup policy).
+- **Calendar Sync**:
+    - **Cleaners (Google Calendar)**: One-way sync to display jobs as read-only events.
+    - **Properties (iCal from Airbnb/VRBO)**: System polls iCal URLs to detect checkout events and automatically create turnover jobs.
+- **API Access**: Optional API access for power users to read their own data.
+
+### UI/UX Decisions
+The platform features role-based stream pages (Owner, Cleaner) with calm, informative designs.
+
+**Visual Theme:** Blue/slate gray color scheme (primary: 217 70% 50% light, 217 80% 60% dark) for a professional tech aesthetic that matches the logo. Uses slate color palette for consistent neutral tones.
+
+**Language Style:** Friendly, helpful tool language rather than corporate SaaS. Examples:
+- "Steady work. No bidding. No drama." (not "Stable work. Predictable pay.")
+- "Matched by fit, not luck." (not "Matched by pattern")
+- Tier labels: "Getting Started" (not "Trial"), "Verified", "Trusted", "Expert"
+
+**Post-login routing:** Owners → `/owner/streams`, Cleaners → `/cleaner/work`
+**Page structure:** "Your Work" title with role-specific subtitle (Cleaner: "Steady income. Your schedule.")
+
+**Cleaner Stream Detail Features:**
+- "Up Next" card with start/complete clean actions
+- Messaging section for owner communication
+- Pay details breakdown with visibility into earnings
+
+**Admin Dashboard (/admin):**
+- Operations overview with stats: Operators, Active Streams, At Risk, Open Disputes, Silent Resolution
+- Tabbed interface: Clean Timeline, Disputes, Reliability, Stream Monitor, Stream Controls, Payment Controls
+- Dispute resolution with "Refund Owner" / "Pay Cleaner" options
+- Cleaner reliability adjustments (+/- 20% range)
+- Payment overrides with reason tracking
+- **Beta Safety Controls**: Pause streams, capture/void pending payments, safety overview card
+
+**Pricing Page (/pricing):**
+- Simple per-clean pricing with no bidding/hourly tracking messaging
+- Stream Mode card ($69/mo per property) with backup and automation features
+- Cleaner pay transparency section
+- Trial streams explanation
+- Trust messaging: "You're never charged for a clean that doesn't occur"
+
+**Owner Onboarding (/onboarding/owner):**
+5-step wizard: Welcome → Property Details → Payment Setup → Review Match → Approve Stream
+
+**Cleaner Onboarding (/onboarding/cleaner):**
+5-step wizard: Build Your DNA → Cleaner DNA Form → Stripe Connect → Review Offer → Accept Trial
+
+**PostCleanFeedback Component:**
+- Role-specific one-question feedback after each clean
+- Owner: "Did this feel easier than how you usually handle cleaning?"
+- Cleaner: "Did this stream fit how you like to work?"
+
+The landing page has a future-tech aesthetic with DNA background animation, light neutral background, soft elevation, and restrained copy.
+
+## External Dependencies
+
+- **Replit Auth**: Used for OpenID Connect (OIDC) authentication, session management (PostgreSQL `sessions` table), and user data storage (`users` table).
+- **Stripe**: Integrated for subscription billing, per-clean operations fees, payment processing (authorize-then-capture flow), and webhook handling.
+- **Google APIs (googleapis)**: Utilized for one-way synchronization of cleaner job schedules to Google Calendar.
+- **node-ical**: Used for parsing iCal calendar feeds from platforms like Airbnb/VRBO for property calendar synchronization.
+- **node-cron**: Recommended for periodic polling of iCal URLs.
+- **Object Storage**: Integrated for file uploads such as cleaner profile photos and work galleries.
