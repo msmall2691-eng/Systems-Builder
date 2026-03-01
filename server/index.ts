@@ -36,7 +36,7 @@ export function log(message: string, source = "express") {
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+  let capturedJsonResponse: unknown;
 
   const originalResJson = res.json;
   res.json = function (bodyJson, ...args) {
@@ -49,7 +49,12 @@ app.use((req, res, next) => {
     if (path.startsWith("/api")) {
       let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+        const serializedResponse = JSON.stringify(capturedJsonResponse);
+        const truncatedResponse =
+          serializedResponse.length > 400
+            ? `${serializedResponse.slice(0, 397)}...`
+            : serializedResponse;
+        logLine += ` :: ${truncatedResponse}`;
       }
 
       log(logLine);
